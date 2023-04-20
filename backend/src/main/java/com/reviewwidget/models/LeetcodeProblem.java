@@ -11,37 +11,39 @@ public class LeetcodeProblem extends Item {
     
     public String category;
 
-    public List<String> testCases;
+    public List<String> hints;
 
     public String answer;
 
     @Autowired
-    public LeetcodeProblem(Date dateReviewed, String description, Type type, String category, String answer, List<String> testCases, int userDefinedPriority) {
+    public LeetcodeProblem(String title, Date dateReviewed, String description, Type type, String category, String answer, List<String> hints, int userDefinedPriority) {
         super(dateReviewed);
         this.type = Item.Type.LEETCODE;
         
+        this.title = title;
         this.description = description;
         this.category = category;
-        this.testCases = testCases;
+        this.hints = hints;
         this.answer = answer;
         this.userDefinedPriority = userDefinedPriority;
     }
 
     public void updateProblem(LeetcodeProblem problem) {
         this.dateReviewed = problem.getDateReviewed();
+        this.title = problem.getTitle();
         this.description = problem.getDescription();
         this.category = problem.getCategory();
-        this.testCases = problem.getTestCases();
+        this.hints = problem.getHints();
         this.answer = problem.getAnswer();
         this.userDefinedPriority = problem.getPriority();
     }
 
-    public List<String> getTestCases() {
-        return this.testCases;
+    public List<String> getHints() {
+        return this.hints;
     }
 
-    public void addTestCase(String testCase) {
-        this.testCases.add(testCase);
+    public void addHint(String hint) {
+        this.hints.add(hint);
     }
 
     public String getCategory() {

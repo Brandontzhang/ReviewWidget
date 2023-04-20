@@ -16,9 +16,11 @@ public abstract class Item {
 
     protected int userDefinedPriority;
 
-    protected Date dateReviewed;
+    protected String title;
 
     protected String description;
+
+    protected Date dateReviewed;
 
     protected Type type;
 
@@ -93,6 +95,14 @@ public abstract class Item {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
 }
