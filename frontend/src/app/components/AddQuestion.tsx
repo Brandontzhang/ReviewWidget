@@ -1,10 +1,20 @@
 import { Form, Input, Card, Button, Select } from "antd";
 import { DefaultOptionType } from "antd/es/select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import InputList from "./InputList";
 
 interface Hint {
     key : number,
     value : string;
+}
+
+interface LeetcodeProblem {
+    title : string,
+    description : string,
+    priority : number,
+    hints : string[],
+    answer : string,
+    date : Date
 }
 
 let AddQuestion = (props : any) => {
@@ -36,40 +46,35 @@ let AddQuestion = (props : any) => {
         }
     ];
 
-    let updateHints = (newHint : string , key : number) : void => {
-        let filteredHints : Hint[] = hints.filter(h => h.key != key);
-        let updatedHints : Hint[] = [...filteredHints, {key : key, value : newHint}];
-        updatedHints.sort((a, b) => a.key - b.key);
-        setHints(updatedHints);
-    }
-
     let submit = () => {
         setDate(Date.now());
-        hints.forEach(console.log);
+
+        let newProblem : LeetcodeProblem = {
+            title: title,
+            description: description,
+            priority: priority,
+            hints: hints.map(hint => hint.value),
+            answer: answer,
+            date: new Date(date)
+        }
+
+        
     }
 
     return (
         <Card>
             <Form form={form} layout="vertical">
                 <Form.Item label="Title">
-                    <Input placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
+                    <Input placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} />
                 </Form.Item>
                 <Form.Item label="Description">
-                    <Input placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
+                    <Input placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} />
                 </Form.Item>
                 <Form.Item label="Difficulty">
-                    <Select options={priorityOptions} />
+                    <Select options={priorityOptions} value={priority} onChange={e => setPriority(e)} />
                 </Form.Item>
                 <Form.Item label="Hints">
-                    {hints.map(hint => {
-                        return (
-                            // Move to different component and add delete
-                            <Input key={hint.key} placeholder="hint" value={hint.value} onChange={e => updateHints(e.target.value, hint.key)}/> 
-                        )
-                    })}
-                    <Button onClick={() => {
-                        setHints([...hints, {key : hints.length + 1, value : ""}]);
-                    }}>Plus</Button>
+                    <InputList items={hints} setItems={setHints} />
                 </Form.Item>
                 <Form.Item label="Answer">
                     <Input.TextArea 
