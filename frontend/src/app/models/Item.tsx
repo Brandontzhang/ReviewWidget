@@ -1,5 +1,5 @@
 export default interface Item {
-    priority : number;
+    userDefinedPriority : number;
 
     title : string;
 

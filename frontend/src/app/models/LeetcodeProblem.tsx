@@ -1,7 +1,7 @@
 import Item from "./Item";
 
 export default interface LeetcodeProblem extends Item {
-    category : string;
+    categories : string[];
 
     hints : string[];
 

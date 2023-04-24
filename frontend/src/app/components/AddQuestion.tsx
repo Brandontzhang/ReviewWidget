@@ -1,10 +1,10 @@
 import { Form, Input, Card, Button, Select } from "antd";
 import { DefaultOptionType } from "antd/es/select";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import InputList from "./InputList";
 import LeetcodeProblemController from "../controllers/LeetcodeProblemController";
-import useLeetcodeProblems from "../hooks/useLeetcodeProblems";
 import LeetcodeProblem from "../models/LeetcodeProblem";
+import ComponenentTags from "./ComponentTags";
 
 interface Hint {
     key : number,
@@ -17,9 +17,10 @@ let AddQuestion = (props : any) => {
     let [title, setTitle] = useState("");
     let [description, setDescription] = useState("");
     let [date, setDate] = useState(Date.now());
-    let [priority, setPriority] = useState(0);
+    let [priority, setPriority] = useState(-1);
     let [answer, setAnswer] = useState("");
     let [hints, setHints] = useState<Hint[]>([]);
+    let [categories, setCategories] = useState<string[]>([]);
 
     let priorityOptions : DefaultOptionType[] = [
         {
@@ -39,19 +40,19 @@ let AddQuestion = (props : any) => {
         }
     ];
 
-
-    // TODO : Remove useState for form inputs that only need to be checked on submission and use useRef instead
     let submit = () => {
-        setDate(Date.now());
+        console.log("hi");
+        form.validateFields();
 
+        setDate(Date.now());
         let newProblem : LeetcodeProblem = {
             title: title,
             description: description,
-            priority: priority,
+            userDefinedPriority: priority,
             hints: hints.map(hint => hint.value),
             answer: answer,
             date: new Date(date),
-            category : 'category'
+            categories : categories
         }
 
         LeetcodeProblemController.addQuestion(newProblem);
@@ -59,29 +60,47 @@ let AddQuestion = (props : any) => {
 
     return (
         <Card>
-            <Form form={form} layout="vertical">
-                <Form.Item label="Title">
-                    <Input placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} />
+            <Form form={form} name='qForm' layout="vertical" onFinish={submit}>
+                <Form.Item label="Title" name="title" rules={[{required : true, message: "Please enter a title"}]}>
+                    <Input 
+                        placeholder="Title" 
+                        value={title} 
+                        onChange={e => setTitle(e.target.value)} 
+                    />
                 </Form.Item>
-                <Form.Item label="Description">
-                    <Input placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} />
+                <Form.Item label="Labels" name="categories">
+                    <ComponenentTags setTags={setCategories}></ComponenentTags>
                 </Form.Item>
-                <Form.Item label="Difficulty">
-                    <Select options={priorityOptions} placeholder={'Easy'} onChange={e => setPriority(e)} />
+                <Form.Item label="Description" name="description">
+                    <Input.TextArea 
+                        placeholder="Description"
+                        rows={4} 
+                        value={description} 
+                        onChange={e => setDescription(e.target.value)} 
+                    />
                 </Form.Item>
-                <Form.Item label="Hints">
+                <Form.Item label="Difficulty" name="priority" rules={[{required : true, message: "Please select a difficulty"}]}>
+                    <Select 
+                        options={priorityOptions} 
+                        placeholder={'Easy'} 
+                        onChange={e => setPriority(e)} 
+                    />
+                </Form.Item>
+                <Form.Item label="Hints" name="hints">
                     <InputList items={hints} setItems={setHints} />
                 </Form.Item>
-                <Form.Item label="Answer">
+                <Form.Item label="Answer" name="answer" rules={[{required : true, message: "Please enter an answer"}]}>
                     <Input.TextArea 
                         placeholder="answer" 
                         rows={4}
                         value={answer} 
-                        onChange={(e) => setAnswer(e.target.value)} 
+                        onChange={(e) => setAnswer(e.target.value)}
                     />
                 </Form.Item>
                 <Form.Item>
-                    <Button type="primary" onClick={submit}>Submit</Button>
+                    <Button type="primary" htmlType="submit">
+                        Submit
+                    </Button>
                 </Form.Item>
             </Form>
         </Card>
