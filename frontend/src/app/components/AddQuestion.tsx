@@ -1,10 +1,11 @@
-import { Form, Input, Card, Button, Select } from "antd";
+import { Form, Input, Card, Button, Select, notification } from "antd";
 import { DefaultOptionType } from "antd/es/select";
 import { useState } from "react";
 import InputList from "./InputList";
 import LeetcodeProblemController from "../controllers/LeetcodeProblemController";
 import LeetcodeProblem from "../models/LeetcodeProblem";
 import ComponenentTags from "./ComponentTags";
+import { clear } from "console";
 
 interface Hint {
     key : number,
@@ -40,22 +41,28 @@ let AddQuestion = (props : any) => {
         }
     ];
 
-    let submit = () => {
-        console.log("hi");
-        form.validateFields();
+    const successNotification = () => {
+        notification.success({
+          message: 'Question created',
+          placement : 'top'
+        });
+    };
 
+    let submit = async () => {
         setDate(Date.now());
         let newProblem : LeetcodeProblem = {
             title: title,
             description: description,
-            userDefinedPriority: priority,
+            userDefinedPriority: priority == -1 ? 0 : priority,
             hints: hints.map(hint => hint.value),
             answer: answer,
             date: new Date(date),
             categories : categories
         }
 
-        LeetcodeProblemController.addQuestion(newProblem);
+        await LeetcodeProblemController.addQuestion(newProblem);
+        form.resetFields();
+        successNotification();
     }
 
     return (
