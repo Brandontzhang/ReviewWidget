@@ -62,4 +62,10 @@ public class LeetcodeProblemController {
         leetcodeService.deleteById(id);
     }
 
+    // Delete All (for debugging and testing)
+    @DeleteMapping("leetcodeproblems")
+    public void deleteAllLeetcodeProblems() {
+        leetcodeService.deleteAll();
+    }
+
 }

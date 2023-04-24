@@ -16,8 +16,8 @@ public class LeetcodeProblem extends Item {
     public String answer;
 
     @Autowired
-    public LeetcodeProblem(String title, Date dateReviewed, String description, Type type, String category, String answer, List<String> hints, int userDefinedPriority) {
-        super(dateReviewed);
+    public LeetcodeProblem(String title, Date date, String description, Type type, String category, String answer, List<String> hints, int userDefinedPriority) {
+        super(date);
         this.type = Item.Type.LEETCODE;
         
         this.title = title;
@@ -29,7 +29,7 @@ public class LeetcodeProblem extends Item {
     }
 
     public void updateProblem(LeetcodeProblem problem) {
-        this.dateReviewed = problem.getDateReviewed();
+        this.date = problem.getDate();
         this.title = problem.getTitle();
         this.description = problem.getDescription();
         this.category = problem.getCategory();

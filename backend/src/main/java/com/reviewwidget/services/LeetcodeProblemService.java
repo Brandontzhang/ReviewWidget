@@ -42,4 +42,8 @@ public class LeetcodeProblemService {
         leetcodeRepository.save(updatedProblem);
     }
 
+    public void deleteAll() {
+        leetcodeRepository.deleteAll();
+    }
+
 }

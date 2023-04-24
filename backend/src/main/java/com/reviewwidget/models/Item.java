@@ -20,7 +20,7 @@ public abstract class Item {
 
     protected String description;
 
-    protected Date dateReviewed;
+    protected Date date;
 
     protected Type type;
 
@@ -33,9 +33,9 @@ public abstract class Item {
         this.description = "";
     }
 
-    public Item(Date dateReviewed) {
+    public Item(Date date) {
         this();
-        this.dateReviewed = dateReviewed;
+        this.date = date;
     }
 
     public static Comparator<Item> getItemComparator() {
@@ -49,7 +49,7 @@ public abstract class Item {
         // Depends on user priority and time between date reviewed and current date 
 
         Date currentDate = new Date();
-        long diffInMS = currentDate.getTime() - this.dateReviewed.getTime();
+        long diffInMS = currentDate.getTime() - this.date.getTime();
         long diffInDays = TimeUnit.DAYS.convert(diffInMS, TimeUnit.MILLISECONDS);
         
         if (diffInDays <= 1) {
@@ -81,12 +81,12 @@ public abstract class Item {
         this.userDefinedPriority = userDefinedPriority;
     }
 
-    public Date getDateReviewed() {
-        return this.dateReviewed;
+    public Date getDate() {
+        return this.date;
     }
 
-    public void setDateReviewed(Date dateReviewed) {
-        this.dateReviewed = dateReviewed;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getDescription() {
