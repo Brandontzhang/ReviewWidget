@@ -2,23 +2,16 @@ import { Form, Input, Card, Button, Select } from "antd";
 import { DefaultOptionType } from "antd/es/select";
 import { useEffect, useState } from "react";
 import InputList from "./InputList";
+import LeetcodeProblemController from "../controllers/LeetcodeProblemController";
+import useLeetcodeProblems from "../hooks/useLeetcodeProblems";
+import LeetcodeProblem from "../models/LeetcodeProblem";
 
 interface Hint {
     key : number,
     value : string;
 }
 
-interface LeetcodeProblem {
-    title : string,
-    description : string,
-    priority : number,
-    hints : string[],
-    answer : string,
-    date : Date
-}
-
 let AddQuestion = (props : any) => {
-
     const [form] = Form.useForm();
     
     let [title, setTitle] = useState("");
@@ -46,6 +39,8 @@ let AddQuestion = (props : any) => {
         }
     ];
 
+
+    // TODO : Remove useState for form inputs that only need to be checked on submission and use useRef instead
     let submit = () => {
         setDate(Date.now());
 
@@ -55,10 +50,11 @@ let AddQuestion = (props : any) => {
             priority: priority,
             hints: hints.map(hint => hint.value),
             answer: answer,
-            date: new Date(date)
+            date: new Date(date),
+            category : 'category'
         }
 
-        
+        LeetcodeProblemController.addQuestion(newProblem);
     }
 
     return (
@@ -71,7 +67,7 @@ let AddQuestion = (props : any) => {
                     <Input placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} />
                 </Form.Item>
                 <Form.Item label="Difficulty">
-                    <Select options={priorityOptions} value={priority} onChange={e => setPriority(e)} />
+                    <Select options={priorityOptions} placeholder={'Easy'} onChange={e => setPriority(e)} />
                 </Form.Item>
                 <Form.Item label="Hints">
                     <InputList items={hints} setItems={setHints} />
