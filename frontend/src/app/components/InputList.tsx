@@ -1,5 +1,6 @@
-import { Button, Input, InputRef } from "antd";
-import React, { KeyboardEvent, useEffect, useRef } from "react";
+import { DeleteOutlined } from "@ant-design/icons";
+import { Button, Input, InputRef, Space } from "antd";
+import React, { useState, useRef } from "react";
 
 
 interface ListItem {
@@ -10,15 +11,11 @@ interface ListItem {
 const InputList = (props : any) => {
     let items : ListItem[] = props.items;
     let itemInputs = useRef<{[key : number] : InputRef}>({});
-
-    useEffect(() => {
-        let newInputLine : InputRef = itemInputs.current[items.length];
-        if (newInputLine)
-            newInputLine.select();
-    }, [items.length]);
+    let [key, setKey] = useState(items.length);
 
     let addItem = () => {
-        props.setItems([...items, {key : items.length + 1, value : ""}]);
+        props.setItems([...items, {key : key + 1, value : ""}]);
+        setKey(key => key + 1);
     }
 
     let updateItem = (newValue : string , key : number) : void => {
@@ -28,16 +25,11 @@ const InputList = (props : any) => {
         props.setItems(updatedItems);
     }
 
-    let handleEnter = (e : KeyboardEvent<HTMLInputElement>, item : ListItem) => {
-        if (e.key === 'Enter') {
-            if (item.key == items.length) {
-                addItem();
-                // move ref to new line
-            } else {
-                let nextInputLine : InputRef = itemInputs.current[item.key + 1];
-                nextInputLine.select();
-            }
-        }
+    let deleteListItem = (item : ListItem) => {
+        props.setItems((curItems : ListItem[]) => {
+            let removedList = curItems.filter(i => i.key != item.key);
+            return removedList;
+        })
     }
 
     return (
@@ -45,15 +37,17 @@ const InputList = (props : any) => {
             {items.map(item => {
                 return (
                     // Move to different component and add delete
-                    <Input 
-                        key={item.key}
+                    <Space.Compact key={item.key} style={{width : '100%'}}>
+                        <Input 
                         style={{margin : "0 0 8px"}}
                         ref={element => {itemInputs.current[item.key] = element as InputRef}}
                         placeholder="hint" 
                         value={item.value} 
                         onChange={e => updateItem(e.target.value, item.key)}
-                        onKeyUp={e => handleEnter(e, item)}
-                    /> 
+                        /> 
+                        <Button onClick={() => deleteListItem(item)}><DeleteOutlined /></Button>
+                    </Space.Compact>
+                    
                 )
             })}
             <Button onClick={addItem}>Add Hint</Button>
