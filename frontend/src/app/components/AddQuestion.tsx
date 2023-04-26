@@ -5,7 +5,6 @@ import InputList from "./InputList";
 import LeetcodeProblemController from "../controllers/LeetcodeProblemController";
 import LeetcodeProblem from "../models/LeetcodeProblem";
 import ComponenentTags from "./ComponentTags";
-import { clear } from "console";
 
 interface Hint {
     key : number,
@@ -66,7 +65,7 @@ let AddQuestion = (props : any) => {
     }
 
     return (
-        <Card>
+        <Card style={{margin : '2%'}}>
             <Form form={form} name='qForm' layout="vertical" onFinish={submit}>
                 <Form.Item label="Title" name="title" rules={[{required : true, message: "Please enter a title"}]}>
                     <Input 
@@ -76,7 +75,7 @@ let AddQuestion = (props : any) => {
                     />
                 </Form.Item>
                 <Form.Item label="Labels" name="categories">
-                    <ComponenentTags setTags={setCategories}></ComponenentTags>
+                    <ComponenentTags tags={[]} setTags={setCategories} editable={true}></ComponenentTags>
                 </Form.Item>
                 <Form.Item label="Description" name="description">
                     <Input.TextArea 

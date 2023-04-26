@@ -1,11 +1,13 @@
-import { Tag, Input, InputRef } from 'antd';
+import { Tag, Input, InputRef, Space } from 'antd';
 import { useEffect, useRef, useState } from 'react';
+import './components.scss'
 
 const ComponenentTags = (props : any) => {
 
-    const [tags, setTags] = useState<string[]>([]);
+    const [tags, setTags] = useState<string[]>(props.tags);
     const [inputVisible, setInputVisible] = useState(false);
     const [newTag, setNewTag] = useState("");
+    const {editable} = props;
 
     let inputRef = useRef<InputRef>(null);
 
@@ -30,16 +32,16 @@ const ComponenentTags = (props : any) => {
     }
 
     return (
-        <div>
-            {tags.map(tag => {
+        <Space className='tagList' style={{overflowX : 'auto', overflowY: 'hidden', width: '100%', height: '32px'}}>
+            {tags?.map(tag => {
                 const isLongTag = tag.length > 20;
                 return (
-                    <Tag key={tag} closable={true} onClose={() => handleClose(tag)}>
+                    <Tag style={{margin : "5px", marginLeft: '0'}} key={tag} closable={editable} onClose={() => handleClose(tag)}>
                         {isLongTag ? `${tag.slice(0, 20)}...` : tag}
                     </Tag>
                 )
             })}
-            {inputVisible && (
+            {editable && inputVisible && (
                 <Input
                     ref={inputRef}
                     type="text"
@@ -51,15 +53,15 @@ const ComponenentTags = (props : any) => {
                     onPressEnter={addTag}
                 />
         )}
-        {!inputVisible && (
+        {editable && !inputVisible && (
           <Tag
             onClick={() => setInputVisible(true)}
-            style={{ background: '#fff', borderStyle: 'dashed' }}
+            style={{ background: '#fff', borderStyle: 'dashed', margin: "5px" }}
           >
             + New Category
           </Tag>
         )}
-        </div>
+        </Space>
     )
 }
 
