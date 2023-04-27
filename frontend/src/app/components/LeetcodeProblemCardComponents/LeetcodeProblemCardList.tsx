@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import useLeetcodeProblems from "../hooks/useLeetcodeProblems";
-import LeetcodeProblem from "../models/LeetcodeProblem";
-import LeetcodeProblemCardFront from "./LeetcodeProblemCardFront";
+import useLeetcodeProblems from "../../hooks/useLeetcodeProblems";
+import LeetcodeProblem from "../../models/LeetcodeProblem";
 import { Row, Col } from "antd";
+import LeetcodeProblemCard from "./LeetcodeProblemCard";
 
 const LeetcodeProblemCardList = (props : any) => {
 
@@ -18,8 +18,8 @@ const LeetcodeProblemCardList = (props : any) => {
 
         <Row>
             {problems && problems.map(p => 
-            <Col xs={12} sm={8} md={6} lg={6} xl={4}>
-                <LeetcodeProblemCardFront problem={p}/>
+            <Col xs={24} sm={12} md={8} lg={6} xl={6}>
+                <LeetcodeProblemCard problem={p}/>
             </Col>
             )}
         </Row>

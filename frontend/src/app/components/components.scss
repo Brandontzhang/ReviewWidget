@@ -13,3 +13,26 @@
 .tagList {
     width: 5px;
 }
+
+.cardDescription::-webkit-scrollbar {
+    width: 5px;
+    background: #f1f1f1;
+}
+
+.cardDescription::-webkit-scrollbar-thumb {
+    background: #D3D3D3;
+}
+
+.cardDescription {
+    word-wrap: break-word;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    overflow:auto,
+}
+
+.verticalContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+}
