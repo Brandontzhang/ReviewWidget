@@ -14,7 +14,7 @@ const useLeetcodeProblemCategories = (defaultCategories : string[]) => {
         fetchCategories();
     }, []);
 
-    return [categories, setCategories];
+    return categories;
 }
 
 export default useLeetcodeProblemCategories;

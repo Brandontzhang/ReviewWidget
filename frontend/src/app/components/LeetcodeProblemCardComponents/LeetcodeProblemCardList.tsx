@@ -18,7 +18,7 @@ const LeetcodeProblemCardList = (props : any) => {
 
     return (
         <div style={{display: "flex", flexDirection:"column"}}>
-            <Navbar categories={categories[0]} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} problems={problems} setProblems={setProblems} />
+            <Navbar categories={categories} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} problems={problems} setProblems={setProblems} />
             <Row>
                 {problems && problems.map((p, index) => 
                 <Col key={index} xs={24} sm={12} md={8} lg={6} xl={6}>

@@ -5,12 +5,17 @@ import reportWebVitals from './reportWebVitals';
 import LeetcodeProblemCardList from './app/components/LeetcodeProblemCardComponents/LeetcodeProblemCardList';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import AddQuestion from './app/components/FormComponents/AddQuestion';
+import Main from './app/components/HomeComponents/Main';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
 const router = createBrowserRouter([
+  {
+    path: "/",
+    element : <Main />
+  },
   {
     path: "/cards",
     element : <LeetcodeProblemCardList />
