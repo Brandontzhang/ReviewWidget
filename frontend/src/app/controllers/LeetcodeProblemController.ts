@@ -26,4 +26,9 @@ export default class LeetcodeProblemController {
         return res.json();
     }
 
+    static getCategories = async () : Promise<string[]> => {
+        let res = await fetch(`${this.testUrl}/leetcodeproblems/categories`);
+        return res.json();
+    }
+
 }

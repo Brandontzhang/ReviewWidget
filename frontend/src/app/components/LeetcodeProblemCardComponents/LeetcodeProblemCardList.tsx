@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import useLeetcodeProblems from "../../hooks/useLeetcodeProblems";
 import LeetcodeProblem from "../../models/LeetcodeProblem";
-import { Row, Col, Space } from "antd";
+import { Row, Col } from "antd";
 import LeetcodeProblemCard from "./LeetcodeProblemCard";
 import Navbar from "./Navbar";
+import useLeetcodeProblemCategories from "../../hooks/useLeetcodeProblemCategories";
 
 const LeetcodeProblemCardList = (props : any) => {
-    const [category, setCategory] = useState("");
+    const categories = useLeetcodeProblemCategories(["Category"]);
+    const [selectedCategory, setSelectedCategory] = useState("");
     const [problems, setProblems] = useState<LeetcodeProblem[]>([]);
-    const leetcodeProblems = useLeetcodeProblems([], category);
+    const leetcodeProblems = useLeetcodeProblems([], selectedCategory);
     
     useEffect(() => {
         setProblems(leetcodeProblems);
@@ -16,7 +18,7 @@ const LeetcodeProblemCardList = (props : any) => {
 
     return (
         <div style={{display: "flex", flexDirection:"column"}}>
-            <Navbar category={category} setCategory={setCategory} problems={problems} setProblems={setProblems} />
+            <Navbar categories={categories[0]} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} problems={problems} setProblems={setProblems} />
             <Row>
                 {problems && problems.map((p, index) => 
                 <Col key={index} xs={24} sm={12} md={8} lg={6} xl={6}>

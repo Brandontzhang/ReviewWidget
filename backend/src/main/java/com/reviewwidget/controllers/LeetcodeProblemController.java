@@ -1,5 +1,7 @@
 package com.reviewwidget.controllers;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -45,6 +47,22 @@ public class LeetcodeProblemController {
         }
 
         return problems;
+    }
+
+    // Get all problem categories
+    @GetMapping("leetcodeproblems/categories")
+    public HashSet<String> getAllCategories() {
+        List<LeetcodeProblem> problems = leetcodeService.findAll();
+        HashSet<String> categories = new HashSet<>();
+
+        for (int i = 0; i < problems.size(); i++) {
+            List<String> pCategories = problems.get(i).getCategories();
+            for (String cat : pCategories) {
+                categories.add(cat);
+            }
+        }
+
+        return categories;
     }
 
     // Update

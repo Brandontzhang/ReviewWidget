@@ -3,13 +3,17 @@ import { useEffect, useRef, useState } from 'react';
 import './components.scss'
 
 const ComponenentTags = (props : any) => {
-
     const [tags, setTags] = useState<string[]>(props.tags);
     const [inputVisible, setInputVisible] = useState(false);
     const [newTag, setNewTag] = useState("");
     const {editable} = props;
 
     let inputRef = useRef<InputRef>(null);
+
+    // Refresh on category change
+    useEffect(() => {
+        setTags(props.tags);
+    }, [props.tags])
 
     // Toggle for clicking to add new tag
     useEffect(() => {

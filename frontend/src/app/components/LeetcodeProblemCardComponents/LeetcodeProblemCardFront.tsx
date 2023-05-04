@@ -1,11 +1,16 @@
 import { Button, Card, Form, Input} from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ComponenentTags from "../ComponentTags";
 import ButtonGroup from "antd/es/button/button-group";
 
 const LeetcodeProblemCardFront = (props : any) => {
     const {problem} = props;
     const [tags, setTags] = useState<string[]>(problem.categories);
+
+    useEffect(() => {
+        console.log(problem.categories);
+        setTags(problem.categories);
+    }, [problem])
 
     return (
         <Card style={{margin: "2%", height: "350px"}} title={problem?.title}>

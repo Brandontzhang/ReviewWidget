@@ -1,30 +1,27 @@
 import { Menu, MenuProps } from "antd"
-import { ItemType } from "antd/es/menu/hooks/useItems"
+import useItems, { ItemType } from "antd/es/menu/hooks/useItems"
 import LeetcodeProblem from "../../models/LeetcodeProblem";
+import useLeetcodeProblems from "../../hooks/useLeetcodeProblems";
 
 const Navbar = (props : any) => {
 
-    const {category, setCategory, problems, setProblems} = props;
+    const {categories, selectedCategory, setSelectedCategory, problems} = props;
 
     const changeCategory = (e : any) => {
         let p : LeetcodeProblem[] = problems;
-        console.log(p.flatMap(p => p.categories));
-
-        setCategory(e.key);
+        setSelectedCategory(e.key);
     }
 
-    const getCategories = (problems : LeetcodeProblem[]) : ItemType[] => {
-        let categories = problems.flatMap(p => p.categories);
-        let uniqueCategories = [...new Set(categories)];
-        let listCategories : ItemType[] = uniqueCategories.map(c => {return {label: c, key: c}})
-        return listCategories;
+    const getCategories = (categories : string[]) : ItemType[] => {
+        let listCategories : ItemType[] = categories.map(c => {return {label: c, key: c}})
+        return [{label: "All Categories", key: ""}, ...listCategories];
     }
 
     const items : MenuProps['items'] = [
         {
-            label: <span style={{fontSize: "200%"}}>{category ? category : "Category"}</span>,
+            label: <span style={{fontSize: "200%"}}>{selectedCategory ? selectedCategory : "All Categories"}</span>,
             key: "1",
-            children : getCategories(problems)
+            children : getCategories(categories)
         }
     ]
 
