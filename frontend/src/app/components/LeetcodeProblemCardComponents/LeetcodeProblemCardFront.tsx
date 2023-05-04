@@ -1,6 +1,6 @@
 import { Button, Card, Form, Input} from "antd";
 import { useEffect, useState } from "react";
-import ComponenentTags from "../ComponentTags";
+import ComponenentTags from "../FormComponents/ComponentTags";
 import ButtonGroup from "antd/es/button/button-group";
 
 const LeetcodeProblemCardFront = (props : any) => {

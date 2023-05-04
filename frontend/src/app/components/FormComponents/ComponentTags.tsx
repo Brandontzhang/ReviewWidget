@@ -1,6 +1,6 @@
 import { Tag, Input, InputRef, Space } from 'antd';
 import { useEffect, useRef, useState } from 'react';
-import './components.scss'
+import '../components.scss'
 
 const ComponenentTags = (props : any) => {
     const [tags, setTags] = useState<string[]>(props.tags);

@@ -2,21 +2,28 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { Provider } from 'react-redux';
-import { store } from './app/store';
-import AddQuestion from './app/components/AddQuestion';
-import LeetcodeProblemCardFront from './app/components/LeetcodeProblemCardComponents/LeetcodeProblemCardFront';
 import LeetcodeProblemCardList from './app/components/LeetcodeProblemCardComponents/LeetcodeProblemCardList';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import AddQuestion from './app/components/FormComponents/AddQuestion';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const router = createBrowserRouter([
+  {
+    path: "/cards",
+    element : <LeetcodeProblemCardList />
+  }, 
+  {
+    path : "/create",
+    element : <AddQuestion />
+  }
+])
+
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      {/* <AddQuestion /> */}
-      <LeetcodeProblemCardList />
-    </Provider>
+      <RouterProvider router={router} />
   </React.StrictMode>
 );
 

@@ -2,8 +2,8 @@ import { Form, Input, Card, Button, Select, notification } from "antd";
 import { DefaultOptionType } from "antd/es/select";
 import { useState } from "react";
 import InputList from "./InputList";
-import LeetcodeProblemController from "../controllers/LeetcodeProblemController";
-import LeetcodeProblem from "../models/LeetcodeProblem";
+import LeetcodeProblemController from "../../controllers/LeetcodeProblemController";
+import LeetcodeProblem from "../../models/LeetcodeProblem";
 import ComponenentTags from "./ComponentTags";
 
 interface Hint {

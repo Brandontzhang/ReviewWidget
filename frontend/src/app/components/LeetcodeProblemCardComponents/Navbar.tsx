@@ -1,7 +1,6 @@
 import { Menu, MenuProps } from "antd"
-import useItems, { ItemType } from "antd/es/menu/hooks/useItems"
+import { ItemType } from "antd/es/menu/hooks/useItems"
 import LeetcodeProblem from "../../models/LeetcodeProblem";
-import useLeetcodeProblems from "../../hooks/useLeetcodeProblems";
 
 const Navbar = (props : any) => {
 
