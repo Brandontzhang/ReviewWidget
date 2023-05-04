@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.reviewwidget.models.Item;
@@ -35,8 +36,14 @@ public class LeetcodeProblemController {
 
     // Read
     @GetMapping("leetcodeproblems")
-    public List<LeetcodeProblem> getAllItems() {
-        List<LeetcodeProblem> problems = leetcodeService.findAll();;
+    public List<LeetcodeProblem> getAllItems(@RequestParam Optional<String> category) {
+        List<LeetcodeProblem> problems = null;
+        if (category.isPresent()) {
+            problems = leetcodeService.findAllByCategory(category.get());
+        } else {
+            problems = leetcodeService.findAll();;
+        }
+
         return problems;
     }
 
@@ -67,5 +74,4 @@ public class LeetcodeProblemController {
     public void deleteAllLeetcodeProblems() {
         leetcodeService.deleteAll();
     }
-
 }

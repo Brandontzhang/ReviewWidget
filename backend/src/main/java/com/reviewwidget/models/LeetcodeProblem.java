@@ -1,5 +1,6 @@
 package com.reviewwidget.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +24,9 @@ public class LeetcodeProblem extends Item {
         this.title = title;
         this.description = description;
         this.categories = categories;
+        if (categories == null) {
+            this.categories = new ArrayList<>();
+        }
         this.hints = hints;
         this.answer = answer;
         this.userDefinedPriority = userDefinedPriority;
