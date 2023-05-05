@@ -75,7 +75,7 @@ let AddQuestion = (props : any) => {
                     />
                 </Form.Item>
                 <Form.Item label="Labels" name="categories">
-                    <ComponenentTags tags={[]} setTags={setCategories} editable={true}></ComponenentTags>
+                    <ComponenentTags tags={categories} setTags={setCategories} editable={true}></ComponenentTags>
                 </Form.Item>
                 <Form.Item label="Description" name="description">
                     <Input.TextArea 
