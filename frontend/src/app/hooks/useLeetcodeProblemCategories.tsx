@@ -7,7 +7,7 @@ const useLeetcodeProblemCategories = (defaultCategories : string[]) => {
     const fetchCategories = async () => {
         const categoriesPromise : Promise<string[]> = LeetcodeProblemController.getCategories();
         const [categories] = await Promise.all([categoriesPromise]);
-        setCategories(categories);
+        setCategories(categories.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())));
     }
 
     useEffect(() => {

@@ -5,6 +5,7 @@ import InputList from "./InputList";
 import LeetcodeProblemController from "../../controllers/LeetcodeProblemController";
 import LeetcodeProblem from "../../models/LeetcodeProblem";
 import ComponenentTags from "./ComponentTags";
+import Navbar from "../LeetcodeProblemCardComponents/Navbar";
 
 interface Hint {
     key : number,
@@ -65,7 +66,9 @@ let AddQuestion = (props : any) => {
     }
 
     return (
-        <Card style={{margin : '2%'}}>
+        <div style={{display: "flex", flexDirection:"column", height: "100%",}}>
+            <Navbar/>
+            <Card style={{margin : '2%'}}>
             <Form form={form} name='qForm' layout="vertical" onFinish={submit}>
                 <Form.Item label="Title" name="title" rules={[{required : true, message: "Please enter a title"}]}>
                     <Input 
@@ -110,6 +113,8 @@ let AddQuestion = (props : any) => {
                 </Form.Item>
             </Form>
         </Card>
+        </div>
+        
 
     )
 }
