@@ -69,6 +69,10 @@ public class LeetcodeProblemController {
     public LeetcodeProblem updateLeetcodeProblem(@PathVariable String id, @RequestBody LeetcodeProblem newProblem) {
         Optional<LeetcodeProblem> oldProblem = leetcodeService.findById(id);
 
+        System.out.println(newProblem.getUserDefinedPriority());
+        System.out.println(newProblem.getPriority());
+
+
         oldProblem.ifPresent(foundProblem -> {
             foundProblem.updateProblem(newProblem);
             leetcodeService.save(foundProblem);

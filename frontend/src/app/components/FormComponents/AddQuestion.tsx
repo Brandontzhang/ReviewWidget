@@ -51,6 +51,7 @@ let AddQuestion = (props : any) => {
     let submit = async () => {
         setDate(Date.now());
         let newProblem : LeetcodeProblem = {
+            id : "tempId",
             title: title,
             description: description,
             userDefinedPriority: priority == -1 ? 0 : priority,

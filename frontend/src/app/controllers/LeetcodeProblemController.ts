@@ -31,4 +31,16 @@ export default class LeetcodeProblemController {
         return res.json();
     }
 
+    static updateQuestion = async(problem : LeetcodeProblem) : Promise<LeetcodeProblem> => {
+        let res = await fetch(`${this.testUrl}/leetcodeproblems/${problem.id}`, {
+            method: 'PUT',
+            headers: {
+                'content-type' : 'application/json;charset=UTF-8',
+            },
+            body: JSON.stringify(problem)
+        });
+
+        return res.json();
+    }
+
 }

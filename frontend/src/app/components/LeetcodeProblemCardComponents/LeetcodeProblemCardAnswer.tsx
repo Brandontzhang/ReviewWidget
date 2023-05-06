@@ -9,7 +9,7 @@ import TextArea from "antd/es/input/TextArea";
  * @returns 
  */
 const LeetcodeProblemCardAnswer = (props : any) => {
-    const {answer} = props;
+    const {answer, archive, updatePriority} = props;
 
     return (
         <Card title="Answer" bodyStyle={{height: "85%"}}  style={{margin: "2%", height: "350px"}} extra={<Button onClick={() => props.setSide("front")}><CloseOutlined /></Button>}>
@@ -19,10 +19,10 @@ const LeetcodeProblemCardAnswer = (props : any) => {
                 </Form.Item>
 
                 <ButtonGroup style={{display: "flex", justifyContent: "center"}}>
-                    <Button><CloseOutlined style={{color: "red"}} /></Button>
-                    <Button><RedoOutlined style={{color: "blue"}}/></Button>
-                    <Button><CheckOutlined style={{color: "green"}} /></Button>
-                    <Button><FolderOutlined style={{color: "orange"}} /></Button>
+                    <Button onClick={() => updatePriority(-1)}><CloseOutlined style={{color: "red"}} /></Button>
+                    <Button onClick={() => updatePriority(0)}><RedoOutlined style={{color: "blue"}}/></Button>
+                    <Button onClick={() => updatePriority(+1)}><CheckOutlined style={{color: "green"}} /></Button>
+                    <Button onClick={() => archive()}><FolderOutlined style={{color: "orange"}} /></Button>
                 </ButtonGroup>
             </div>
         </Card>

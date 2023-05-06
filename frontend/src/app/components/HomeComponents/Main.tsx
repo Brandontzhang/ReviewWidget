@@ -2,17 +2,21 @@ import { Button, Card, Select, Space } from "antd";
 import useLeetcodeProblemCategories from "../../hooks/useLeetcodeProblemCategories";
 import { useEffect, useState } from "react";
 import Navbar from "../LeetcodeProblemCardComponents/Navbar";
+import LeetcodeProblemController from "../../controllers/LeetcodeProblemController";
+import { useNavigate } from "react-router-dom";
 
 const Main = () => {
 
     const categories = useLeetcodeProblemCategories([]);
     const [selectedCategory, setSelectedCategory] = useState("");
+    const navigate = useNavigate();
 
     const options = categories.map(category => {return {value : category, label : category}});
 
     const generateCard = () => {
         // console.log(selectedCategory);
         // Get card by category
+        navigate("/review");
     }
 
     return (

@@ -39,7 +39,7 @@ public class LeetcodeProblem extends Item {
         this.categories = problem.getCategories();
         this.hints = problem.getHints();
         this.answer = problem.getAnswer();
-        this.userDefinedPriority = problem.getPriority();
+        this.userDefinedPriority = problem.getUserDefinedPriority();
     }
 
     public List<String> getHints() {
