@@ -7,12 +7,14 @@ const LeetcodeProblemCardFront = (props : any) => {
     const {problem} = props;
     const [tags, setTags] = useState<string[]>(problem.categories);
 
-    useEffect(() => {
-        setTags(problem.categories);
-    }, [problem])
+    let style = {
+        ...props.style,
+        margin: "2%", 
+        height: "350px",
+    }
 
     return (
-        <Card style={{...props.style, margin: "2%", height: "350px"}} title={<span>{problem?.title} : {problem?.userDefinedPriority}</span>}>
+        <Card style={style} title={<span>{problem?.title} : {problem?.priority}</span>}>
             <div style={{display : "flex", flexDirection: "row"}}>
                 <span style={{marginTop: "5px", marginRight : "5px"}}>Labels:</span><ComponenentTags tags={tags} setTags={setTags}></ComponenentTags>
             </div>

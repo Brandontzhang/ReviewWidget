@@ -19,9 +19,9 @@ const LeetcodeProblemCardAnswer = (props : any) => {
                 </Form.Item>
 
                 <ButtonGroup style={{display: "flex", justifyContent: "center"}}>
-                    <Button onClick={() => updatePriority(-1)}><CloseOutlined style={{color: "red"}} /></Button>
+                    <Button onClick={() => updatePriority(+1)}><CloseOutlined style={{color: "red"}} /></Button>
                     <Button onClick={() => updatePriority(0)}><RedoOutlined style={{color: "blue"}}/></Button>
-                    <Button onClick={() => updatePriority(+1)}><CheckOutlined style={{color: "green"}} /></Button>
+                    <Button onClick={() => updatePriority(-1)}><CheckOutlined style={{color: "green"}} /></Button>
                     <Button onClick={() => archive()}><FolderOutlined style={{color: "orange"}} /></Button>
                 </ButtonGroup>
             </div>

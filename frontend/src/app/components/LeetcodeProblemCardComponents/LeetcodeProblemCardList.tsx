@@ -22,7 +22,7 @@ const LeetcodeProblemCardList = (props : any) => {
             <Row>
                 {problems && problems.map((p, index) => 
                 <Col key={index} xs={24} sm={12} md={8} lg={6} xl={6}>
-                    <LeetcodeProblemCard problem={p}/>
+                    <LeetcodeProblemCard problem={p} />
                 </Col>
                 )}
             </Row>

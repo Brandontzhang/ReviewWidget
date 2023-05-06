@@ -3,6 +3,8 @@ export default interface Item {
 
     userDefinedPriority : number;
 
+    priority : number;
+
     title : string;
 
     description : string;
