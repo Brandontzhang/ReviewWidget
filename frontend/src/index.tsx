@@ -6,6 +6,7 @@ import LeetcodeProblemCardList from './app/components/LeetcodeProblemCardCompone
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import AddQuestion from './app/components/FormComponents/AddQuestion';
 import Main from './app/components/HomeComponents/Main';
+import Review from './app/components/ReviewComponents/Review';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path : "/create",
     element : <AddQuestion />
+  },
+  {
+    path : "/review",
+    element : <Review />
   }
 ])
 

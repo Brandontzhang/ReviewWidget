@@ -16,7 +16,7 @@ const Main = () => {
     const generateCard = () => {
         // console.log(selectedCategory);
         // Get card by category
-        navigate("/review");
+        navigate("/review", {state : {selectedCategory : selectedCategory}});
     }
 
     return (

@@ -12,7 +12,7 @@ const LeetcodeProblemCardFront = (props : any) => {
     }, [problem])
 
     return (
-        <Card style={{margin: "2%", height: "350px"}} title={<span>{problem?.title} : {problem?.userDefinedPriority}</span>}>
+        <Card style={{...props.style, margin: "2%", height: "350px"}} title={<span>{problem?.title} : {problem?.userDefinedPriority}</span>}>
             <div style={{display : "flex", flexDirection: "row"}}>
                 <span style={{marginTop: "5px", marginRight : "5px"}}>Labels:</span><ComponenentTags tags={tags} setTags={setTags}></ComponenentTags>
             </div>
@@ -25,7 +25,7 @@ const LeetcodeProblemCardFront = (props : any) => {
             </Form>
 
             <ButtonGroup style={{float : "right"}}>
-                <Button onClick={() => props.setSide("hints")}>Hints</Button>
+                {problem.hints?.length > 0 && <Button onClick={() => props.setSide("hints")}>Hints</Button>}
                 <Button onClick={() => props.setSide("answer")}>Answer</Button>
             </ButtonGroup>
         </Card>

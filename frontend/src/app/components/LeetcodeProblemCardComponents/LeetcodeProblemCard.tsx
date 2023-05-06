@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LeetcodeProblemCardFront from "./LeetcodeProblemCardFront";
 import LeetcodeProblemCardHints from "./LeetcodeProblemCardHints";
 import LeetcodeProblemCardAnswer from "./LeetcodeProblemCardAnswer";
@@ -8,6 +8,10 @@ import LeetcodeProblem from "../../models/LeetcodeProblem";
 const LeetcodeProblemCard = (props : any) => {
     const [side, setSide] = useState("front");
     const [problem, setProblem] = useState<LeetcodeProblem>(props.problem);
+
+    useEffect(() => {
+        setProblem(props.problem);
+    }, [props.problem])
 
     const updatePriority = (priorityIncrement : number) => {
         let priority = problem.userDefinedPriority + priorityIncrement;
@@ -37,14 +41,14 @@ const LeetcodeProblemCard = (props : any) => {
 
     
     if (side === "hints") {
-        return <LeetcodeProblemCardHints hints={problem.hints} setSide={setSide}/>
+        return <LeetcodeProblemCardHints style={props.style} hints={problem.hints} setSide={setSide}/>
     } 
 
     if (side === "answer") {
-        return <LeetcodeProblemCardAnswer updatePriority={updatePriority} archive={archive} answer={problem.answer} setSide={setSide} />
+        return <LeetcodeProblemCardAnswer style={props.style} updatePriority={updatePriority} archive={archive} answer={problem.answer} setSide={setSide} />
     }
 
-    return <LeetcodeProblemCardFront problem={problem} setSide={setSide}/>
+    return <LeetcodeProblemCardFront style={props.style} problem={problem} setSide={setSide}/>
     
 }
 

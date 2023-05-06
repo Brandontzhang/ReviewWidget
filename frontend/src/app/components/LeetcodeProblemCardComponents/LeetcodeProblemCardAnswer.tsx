@@ -12,7 +12,7 @@ const LeetcodeProblemCardAnswer = (props : any) => {
     const {answer, archive, updatePriority} = props;
 
     return (
-        <Card title="Answer" bodyStyle={{height: "85%"}}  style={{margin: "2%", height: "350px"}} extra={<Button onClick={() => props.setSide("front")}><CloseOutlined /></Button>}>
+        <Card title="Answer" bodyStyle={{height: "85%"}}  style={{...props.style, margin: "2%", height: "350px"}} extra={<Button onClick={() => props.setSide("front")}><CloseOutlined /></Button>}>
             <div style={{display : "flex", flexDirection : "column", justifyContent: "space-between", height: "100%"}}>
                 <Form.Item style={{overflow: 'auto'}}>
                     <TextArea style={{padding: "0px"}} bordered={false} readOnly={true} value={answer} />
