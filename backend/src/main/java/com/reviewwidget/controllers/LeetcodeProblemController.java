@@ -1,5 +1,6 @@
 package com.reviewwidget.controllers;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -45,6 +46,9 @@ public class LeetcodeProblemController {
             problems = leetcodeService.findAll();;
         }
 
+        // Return by highest priority
+        Collections.sort(problems, Collections.reverseOrder((a, b) -> a.getPriority() - b.getPriority()));
+
         return problems;
     }
 
@@ -68,7 +72,7 @@ public class LeetcodeProblemController {
     @PutMapping("leetcodeproblems/{id}")
     public LeetcodeProblem updateLeetcodeProblem(@PathVariable String id, @RequestBody LeetcodeProblem newProblem) {
         Optional<LeetcodeProblem> oldProblem = leetcodeService.findById(id);
-        
+
         oldProblem.ifPresent(foundProblem -> {
             foundProblem.updateProblem(newProblem);
             leetcodeService.save(foundProblem);

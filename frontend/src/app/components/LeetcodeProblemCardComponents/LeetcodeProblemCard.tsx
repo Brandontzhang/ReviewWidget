@@ -13,19 +13,19 @@ const LeetcodeProblemCard = (props : any) => {
     const getPriorityColor = () => {
         switch (problem.priority) {
             case 0:
-                return '#FFFFFF';
-            case 1:
                 return '#27FF00';
-            case 2: 
+            case 1:
                 return '#00B9CB';
-            case 3:
+            case 2: 
                 return '#FFE800';
-            case 4:
+            case 3:
                 return '#FF7400';
+            case 4:
+                return '#FF00AA';
             case 5:
                 return '#FF0000';
             case -1:
-                return '#FFFFFF';
+                return '#808080';
             default:
                 return '#FFFFFF';
         }
@@ -46,14 +46,21 @@ const LeetcodeProblemCard = (props : any) => {
         if (priority > 5) {
             priority = 5;
         }
+        if (priority <= -1) {
+            priority = -1;
+        }
         let updatedProblem = {
             ...problem,
             date: new Date(),
-            userDefinedPriority : problem.userDefinedPriority + priorityIncrement
+            userDefinedPriority : priority
         }
         updatedProblem = await LeetcodeProblemController.updateQuestion(updatedProblem);
         setSide("front");
         setProblem(updatedProblem);
+        // Updating the list when the priority is changed
+        if (props.updateList) {
+            props.updateList(problem);
+        }
     }
 
     const archive = () => {
@@ -65,6 +72,9 @@ const LeetcodeProblemCard = (props : any) => {
         LeetcodeProblemController.updateQuestion(updatedProblem);
         setSide("front");
         setProblem(updatedProblem);
+        if (props.updateList) {
+            props.updateList(problem);
+        }
     }
 
     const style = {

@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import LeetcodeProblem from "../models/LeetcodeProblem";
 import LeetcodeProblemController from "../controllers/LeetcodeProblemController";
 
-const useLeetcodeProblems = (problems : LeetcodeProblem[], category? : string) => {
+const useLeetcodeProblems = (problems : LeetcodeProblem[], category? : string) : [LeetcodeProblem[], Dispatch<SetStateAction<LeetcodeProblem[]>>] => {
     const [leetcodeProblems, setLeetcodeProblems] = useState<LeetcodeProblem[]>(problems);
 
     const fetchAllProblems = async () => {
@@ -25,7 +25,7 @@ const useLeetcodeProblems = (problems : LeetcodeProblem[], category? : string) =
         }
     }, [category]);
 
-    return leetcodeProblems;
+    return [leetcodeProblems, setLeetcodeProblems];
 }
 
 export default useLeetcodeProblems;

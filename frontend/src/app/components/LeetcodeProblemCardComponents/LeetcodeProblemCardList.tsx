@@ -10,7 +10,7 @@ const LeetcodeProblemCardList = (props : any) => {
     const categories = useLeetcodeProblemCategories(["Category"]);
     const [selectedCategory, setSelectedCategory] = useState("");
     const [problems, setProblems] = useState<LeetcodeProblem[]>([]);
-    const leetcodeProblems = useLeetcodeProblems([], selectedCategory);
+    const [leetcodeProblems, setLeetcodeProblems] = useLeetcodeProblems([], selectedCategory);
     
     useEffect(() => {
         setProblems(leetcodeProblems);

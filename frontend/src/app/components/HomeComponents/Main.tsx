@@ -26,7 +26,7 @@ const Main = () => {
                 <Card bodyStyle={{height:"100%"}} style={{height : "300px", width: "300px"}}>
                 <div style={{display:"flex", flexDirection:"column", justifyContent:"space-between", height:"100%"}}>
                     <div style={{display : "flex", flexDirection: "column", alignItems:"center"}}>
-                        <span>Interleaving Review</span>
+                        <span>Interleaving Retrieval Practice</span>
                     </div>
                     <div style={{display : "flex", flexDirection: "column", justifyContent:"space-between", alignItems:"center"}}>
                         <Select style={{width : "100%"}} options={options} onSelect={(c) => setSelectedCategory(c)} />
