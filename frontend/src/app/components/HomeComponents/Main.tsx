@@ -14,8 +14,6 @@ const Main = () => {
     const options = categories.map(category => {return {value : category, label : category}});
 
     const generateCard = () => {
-        // console.log(selectedCategory);
-        // Get card by category
         navigate("/review", {state : {selectedCategory : selectedCategory}});
     }
 

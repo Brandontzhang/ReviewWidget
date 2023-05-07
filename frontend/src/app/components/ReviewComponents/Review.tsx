@@ -4,7 +4,7 @@ import Navbar from "../LeetcodeProblemCardComponents/Navbar";
 import { useEffect, useState } from "react";
 import LeetcodeProblemCard from "../LeetcodeProblemCardComponents/LeetcodeProblemCard";
 import LeetcodeProblem from "../../models/LeetcodeProblem";
-import { Button, Card, Space } from "antd";
+import { Button} from "antd";
 import ButtonGroup from "antd/es/button/button-group";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 
@@ -13,7 +13,7 @@ const Review = (props : any) => {
     const location = useLocation();
     const {state} = location;
     const [index, setIndex] = useState(0);
-    const [leetcodeProblems, setLeetcodeProblems] = useLeetcodeProblems([], state.selectedCategory ? state.selectedCategory : "");
+    const [leetcodeProblems, setLeetcodeProblems] = useLeetcodeProblems([], state.selectedCategory ? state.selectedCategory : "", true);
     const [problem, setProblem] = useState(leetcodeProblems[index]);
 
     const changeProblem = (increment : number) => {
@@ -31,7 +31,6 @@ const Review = (props : any) => {
     // When problem states are updated (the priority)... Problem should be removed
     const updateList = (problem : LeetcodeProblem) => {
         const filteredProblems = leetcodeProblems.filter(p => problem.id != p.id);
-        console.log(filteredProblems.length);
         setLeetcodeProblems([...filteredProblems]);
         setIndex(index => {
             return Math.min(Math.max(0, index - 1), filteredProblems.length);

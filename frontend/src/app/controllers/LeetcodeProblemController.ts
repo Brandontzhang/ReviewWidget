@@ -4,13 +4,19 @@ export default class LeetcodeProblemController {
 
     static testUrl : string = 'http://localhost:8080/api';
 
-    static getProblemsInCategory = async (category : string) : Promise<LeetcodeProblem[]> => {
-        let res = await fetch(`${this.testUrl}/leetcodeproblems?category=${category}`)
+    static getProblemsInCategory = async (category : string, shuffle? : boolean) : Promise<LeetcodeProblem[]> => {
+        if (!shuffle) {
+            shuffle = false;
+        }
+        let res = await fetch(`${this.testUrl}/leetcodeproblems?category=${category}&shuffle=${shuffle}`)
         return res.json();
     }
 
-    static getAll = async () : Promise<LeetcodeProblem[]> => {
-        let res = await fetch(`${this.testUrl}/leetcodeproblems`);
+    static getAll = async (shuffle? : boolean) : Promise<LeetcodeProblem[]> => {
+        if (!shuffle) {
+            shuffle = false;
+        }
+        let res = await fetch(`${this.testUrl}/leetcodeproblems?shuffle=${shuffle}`);
         return res.json();
     }
 

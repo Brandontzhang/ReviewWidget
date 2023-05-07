@@ -38,7 +38,7 @@ public class LeetcodeProblemController {
 
     // Read
     @GetMapping("leetcodeproblems")
-    public List<LeetcodeProblem> getAllItems(@RequestParam Optional<String> category) {
+    public List<LeetcodeProblem> getAllItems(@RequestParam Optional<String> category, @RequestParam Optional<Boolean> shuffle) {
         List<LeetcodeProblem> problems = null;
         if (category.isPresent()) {
             problems = leetcodeService.findAllByCategory(category.get());
@@ -46,8 +46,13 @@ public class LeetcodeProblemController {
             problems = leetcodeService.findAll();;
         }
 
-        // Return by highest priority
+        // Sort by priority
         Collections.sort(problems, Collections.reverseOrder((a, b) -> a.getPriority() - b.getPriority()));
+
+        // if shuffle is required
+        if (shuffle.isPresent() && shuffle.get()) {
+            problems = leetcodeService.shuffleQuestionsInPriority(problems);
+        }
 
         return problems;
     }
