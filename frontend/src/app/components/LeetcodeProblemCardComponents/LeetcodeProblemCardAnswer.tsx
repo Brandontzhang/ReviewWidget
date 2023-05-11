@@ -14,8 +14,8 @@ const LeetcodeProblemCardAnswer = (props : any) => {
     return (
         <Card title="Answer" bodyStyle={{height: "85%"}}  style={{...props.style, margin: "2%", height: "350px"}} extra={<Button onClick={() => props.setSide("front")}><CloseOutlined /></Button>}>
             <div style={{display : "flex", flexDirection : "column", justifyContent: "space-between", height: "100%"}}>
-                <Form.Item style={{overflow: 'auto'}}>
-                    <TextArea style={{padding: "0px"}} bordered={false} readOnly={true} value={answer} />
+                <Form.Item style={{height: "100%"}}>
+                    <TextArea className="cardAnswer" style={{padding: "0px", minHeight:"180px"}} bordered={false} readOnly={true} value={answer} />
                 </Form.Item>
 
                 <ButtonGroup style={{display: "flex", justifyContent: "center"}}>

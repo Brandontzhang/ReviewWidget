@@ -39,7 +39,7 @@ const LeetcodeProblemCardHints = (props : any) => {
 
             <div style={{display : "flex", flexDirection : "column", justifyContent: "space-between", height: "100%"}}>
                 <Form.Item style={{overflow: 'auto'}}>
-                    <TextArea style={{padding: "0px"}} bordered={false} readOnly={true} value={hint} />
+                    <TextArea className="cardHint" style={{padding: "0px", minHeight:"180px"}} bordered={false} readOnly={true} value={hint} />
                 </Form.Item>
 
                 <ButtonGroup style={{display: "flex", justifyContent: "center"}}>
