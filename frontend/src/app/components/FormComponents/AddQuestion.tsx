@@ -64,6 +64,8 @@ let AddQuestion = (props : any) => {
 
         await LeetcodeProblemController.addQuestion(newProblem);
         form.resetFields();
+        setCategories([]);
+        setHints([]);
         successNotification();
     }
 
