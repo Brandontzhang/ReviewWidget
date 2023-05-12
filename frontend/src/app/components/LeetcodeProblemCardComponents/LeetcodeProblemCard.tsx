@@ -91,7 +91,7 @@ const LeetcodeProblemCard = (props : any) => {
         return <LeetcodeProblemCardAnswer style={style} updatePriority={updatePriority} archive={archive} answer={problem.answer} setSide={setSide} />
     }
 
-    return <LeetcodeProblemCardFront style={style} problem={problem} setSide={setSide}/>
+    return <LeetcodeProblemCardFront style={style} problem={problem} setSide={setSide} delete={props.delete}/>
     
 }
 

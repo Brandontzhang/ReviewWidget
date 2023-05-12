@@ -49,4 +49,13 @@ export default class LeetcodeProblemController {
         return res.json();
     }
 
+    static deleteQuestion = async(problem : LeetcodeProblem) => {
+        await fetch(`${this.testUrl}/leetcodeproblems/${problem.id}`, {
+            method: 'DELETE',
+            headers: {
+                'content-type' : 'application/json;charset=UTF-8',
+            },
+        });
+    }
+
 }

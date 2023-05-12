@@ -1,7 +1,9 @@
 import { Button, Card, Form, Input} from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ComponenentTags from "../FormComponents/ComponentTags";
 import ButtonGroup from "antd/es/button/button-group";
+import { DeleteOutlined } from "@ant-design/icons";
+import LeetcodeProblemController from "../../controllers/LeetcodeProblemController";
 
 const LeetcodeProblemCardFront = (props : any) => {
     const {problem} = props;
@@ -14,7 +16,7 @@ const LeetcodeProblemCardFront = (props : any) => {
     }
 
     return (
-        <Card style={style} title={<span>{problem?.title} : {problem?.priority}</span>}>
+        <Card style={style} title={<span>{problem?.title} : {problem?.priority}</span>} extra={<Button onClick={() => props.delete(problem)}><DeleteOutlined /></Button>}>
             <div style={{display : "flex", flexDirection: "row"}}>
                 <span style={{marginTop: "5px", marginRight : "5px"}}>Labels:</span><ComponenentTags tags={tags} setTags={setTags}></ComponenentTags>
             </div>
