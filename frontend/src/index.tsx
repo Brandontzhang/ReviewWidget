@@ -26,6 +26,10 @@ const router = createBrowserRouter([
     element : <AddQuestion />
   },
   {
+    path : "/update/:id",
+    element : <AddQuestion />
+  },
+  {
     path : "/review",
     element : <Review />
   }

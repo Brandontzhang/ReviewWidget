@@ -1,11 +1,13 @@
 import { Form, Input, Card, Button, Select, notification } from "antd";
 import { DefaultOptionType } from "antd/es/select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputList from "./InputList";
 import LeetcodeProblemController from "../../controllers/LeetcodeProblemController";
 import LeetcodeProblem from "../../models/LeetcodeProblem";
 import ComponenentTags from "./ComponentTags";
 import Navbar from "../LeetcodeProblemCardComponents/Navbar";
+import { useParams } from "react-router-dom";
+import useLeetcodeProblem from "../../hooks/useLeetcodeProblem";
 
 interface Hint {
     key : number,
@@ -22,6 +24,26 @@ let AddQuestion = (props : any) => {
     let [answer, setAnswer] = useState("");
     let [hints, setHints] = useState<Hint[]>([]);
     let [categories, setCategories] = useState<string[]>([]);
+    const { id } = useParams();
+    const [leetcodeProblem, setLeetcodeProblem] = useLeetcodeProblem(id);
+
+    useEffect(() => {
+        if (leetcodeProblem) {
+            const {title, description, priority, answer, hints, categories} = leetcodeProblem;
+            setTitle(title);
+            setDescription(description);
+            setPriority(priority);
+            setAnswer(answer);
+            setHints(hints.map((hint, index) => {return{key : index, value : hint}}));
+            setCategories(categories);
+            form.setFieldValue("title", title);
+            form.setFieldValue("description", description);
+            form.setFieldValue("priority", priority);
+            form.setFieldValue("answer", answer);
+            form.setFieldValue("hints", hints);
+            form.setFieldValue("categories", categories);
+        }
+    }, [leetcodeProblem]);
 
     let priorityOptions : DefaultOptionType[] = [
         {
@@ -43,7 +65,7 @@ let AddQuestion = (props : any) => {
 
     const successNotification = () => {
         notification.success({
-          message: 'Question created',
+          message: id ? 'Question updated' : 'Question created',
           placement : 'top'
         });
     };
@@ -51,7 +73,7 @@ let AddQuestion = (props : any) => {
     let submit = async () => {
         setDate(Date.now());
         let newProblem : LeetcodeProblem = {
-            id : "tempId",
+            id : id? id : "",
             title: title,
             description: description,
             userDefinedPriority: priority,
@@ -62,7 +84,13 @@ let AddQuestion = (props : any) => {
             categories : categories
         }
 
-        await LeetcodeProblemController.addQuestion(newProblem);
+        if (!id) {
+            // Creating a problem
+            await LeetcodeProblemController.addQuestion(newProblem);
+        } else {
+            // Updating a problem
+            await LeetcodeProblemController.updateQuestion(newProblem);
+        }
         form.resetFields();
         setCategories([]);
         setHints([]);
@@ -84,7 +112,7 @@ let AddQuestion = (props : any) => {
                 <Form.Item label="Labels" name="categories">
                     <ComponenentTags tags={categories} setTags={setCategories} editable={true}></ComponenentTags>
                 </Form.Item>
-                <Form.Item label="Description" name="description">
+                <Form.Item label="Description" name="description" rules={[{required : true, message: "Please enter a description"}]}>
                     <Input.TextArea 
                         placeholder="Description"
                         rows={4} 

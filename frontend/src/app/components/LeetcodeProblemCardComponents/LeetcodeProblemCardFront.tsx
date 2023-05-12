@@ -2,12 +2,13 @@ import { Button, Card, Form, Input} from "antd";
 import { useState } from "react";
 import ComponenentTags from "../FormComponents/ComponentTags";
 import ButtonGroup from "antd/es/button/button-group";
-import { DeleteOutlined } from "@ant-design/icons";
-import LeetcodeProblemController from "../../controllers/LeetcodeProblemController";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 const LeetcodeProblemCardFront = (props : any) => {
     const {problem} = props;
     const [tags, setTags] = useState<string[]>(problem.categories);
+    const navigate = useNavigate();
 
     let style = {
         ...props.style,
@@ -15,8 +16,15 @@ const LeetcodeProblemCardFront = (props : any) => {
         height: "350px",
     }
 
+    const cornerButtons = (
+        <ButtonGroup>
+            <Button onClick={() => props.delete(problem)}><DeleteOutlined /></Button>
+            <Button onClick={() => navigate(`/update/${problem.id}`)}><EditOutlined /></Button>
+        </ButtonGroup>
+    )
+
     return (
-        <Card style={style} title={<span>{problem?.title} : {problem?.priority}</span>} extra={<Button onClick={() => props.delete(problem)}><DeleteOutlined /></Button>}>
+        <Card style={style} title={<span>{problem?.title} : {problem?.priority}</span>} extra={cornerButtons}>
             <div style={{display : "flex", flexDirection: "row"}}>
                 <span style={{marginTop: "5px", marginRight : "5px"}}>Labels:</span><ComponenentTags tags={tags} setTags={setTags}></ComponenentTags>
             </div>

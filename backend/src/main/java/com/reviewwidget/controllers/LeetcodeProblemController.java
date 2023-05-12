@@ -73,6 +73,14 @@ public class LeetcodeProblemController {
         return categories;
     }
 
+    @GetMapping("leetcodeproblems/{id}")
+    public LeetcodeProblem getLeetcodeProblemById(@PathVariable String id) {
+        Optional<LeetcodeProblem> problem = leetcodeService.findById(id);
+
+        System.out.println(problem.get().getTitle());
+        return problem.get();
+    }
+
     // Update
     @PutMapping("leetcodeproblems/{id}")
     public LeetcodeProblem updateLeetcodeProblem(@PathVariable String id, @RequestBody LeetcodeProblem newProblem) {

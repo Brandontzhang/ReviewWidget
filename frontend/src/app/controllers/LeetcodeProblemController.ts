@@ -12,6 +12,11 @@ export default class LeetcodeProblemController {
         return res.json();
     }
 
+    static getProblemById = async(id : string) : Promise<LeetcodeProblem> => {
+        let res = await fetch(`${this.testUrl}/leetcodeproblems/${id}`);
+        return res.json();
+    }
+
     static getAll = async (shuffle? : boolean) : Promise<LeetcodeProblem[]> => {
         if (!shuffle) {
             shuffle = false;
