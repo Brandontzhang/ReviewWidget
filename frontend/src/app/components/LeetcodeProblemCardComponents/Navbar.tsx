@@ -31,12 +31,12 @@ const Navbar = (props : any) => {
 
     const NavMenu : MenuProps['items'] = [
         {
-            label: <a href="/cards">Cards</a>,
+            label: <a href="/#/cards">Cards</a>,
             key: 1,
             icon: <FolderOutlined />
         },
         {
-            label: <a href="/create">Add Question</a>,
+            label: <a href="/#/create">Add Question</a>,
             key: 2,
             icon: <PlusCircleFilled />
         },

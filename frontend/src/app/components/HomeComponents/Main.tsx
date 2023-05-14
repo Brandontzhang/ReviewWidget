@@ -1,8 +1,7 @@
 import { Button, Card, Select, Space } from "antd";
 import useLeetcodeProblemCategories from "../../hooks/useLeetcodeProblemCategories";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Navbar from "../LeetcodeProblemCardComponents/Navbar";
-import LeetcodeProblemController from "../../controllers/LeetcodeProblemController";
 import { useNavigate } from "react-router-dom";
 
 const Main = () => {
