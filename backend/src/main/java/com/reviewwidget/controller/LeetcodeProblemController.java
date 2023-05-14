@@ -1,4 +1,4 @@
-package com.reviewwidget.controllers;
+package com.reviewwidget.controller;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -29,6 +29,11 @@ public class LeetcodeProblemController {
 
     @Autowired
     private LeetcodeProblemService leetcodeService;
+
+    @GetMapping
+    public String test() {
+        return "Review Widget Backend";
+    }
 
     // Create
     @PostMapping("leetcodeproblems")
