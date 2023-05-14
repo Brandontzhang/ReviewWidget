@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import LeetcodeProblemCardList from './app/components/LeetcodeProblemCardComponents/LeetcodeProblemCardList';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { RouterProvider, createHashRouter } from 'react-router-dom'
 import AddQuestion from './app/components/FormComponents/AddQuestion';
 import Main from './app/components/HomeComponents/Main';
 import Review from './app/components/ReviewComponents/Review';
@@ -12,7 +12,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element : <Main />
