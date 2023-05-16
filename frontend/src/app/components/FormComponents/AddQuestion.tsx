@@ -15,6 +15,7 @@ interface Hint {
 }
 
 let AddQuestion = (props : any) => {
+    const leetcodeProblemController = new LeetcodeProblemController();
     const [form] = Form.useForm();
     
     let [title, setTitle] = useState("");
@@ -86,10 +87,10 @@ let AddQuestion = (props : any) => {
 
         if (!id) {
             // Creating a problem
-            await LeetcodeProblemController.addQuestion(newProblem);
+            await leetcodeProblemController.addQuestion(newProblem);
         } else {
             // Updating a problem
-            await LeetcodeProblemController.updateQuestion(newProblem);
+            await leetcodeProblemController.updateQuestion(newProblem);
         }
         form.resetFields();
         setCategories([]);

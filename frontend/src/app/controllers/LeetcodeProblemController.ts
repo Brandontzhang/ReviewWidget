@@ -7,16 +7,16 @@ export default class LeetcodeProblemController {
 
     devMode : boolean = true;
 
-    static url : string = 'http://localhost:8080/api';
+    url : string = 'http://localhost:8080/api';
 
     constructor() {
-        if (devMode) {
-            LeetcodeProblemController.url = 'https://test-backend-386802.appspot.com/api'
+        if (!devMode) {
+            this.url = 'https://test-backend-386802.appspot.com/api'
         }
     }
 
 
-    static getProblemsInCategory = async (category : string, shuffle? : boolean) : Promise<LeetcodeProblem[]> => {
+    getProblemsInCategory = async (category : string, shuffle? : boolean) : Promise<LeetcodeProblem[]> => {
         if (!shuffle) {
             shuffle = false;
         }
@@ -24,12 +24,12 @@ export default class LeetcodeProblemController {
         return res.json();
     }
 
-    static getProblemById = async(id : string) : Promise<LeetcodeProblem> => {
+    getProblemById = async(id : string) : Promise<LeetcodeProblem> => {
         let res = await fetch(`${this.url}/leetcodeproblems/${id}`);
         return res.json();
     }
 
-    static getAll = async (shuffle? : boolean) : Promise<LeetcodeProblem[]> => {
+    getAll = async (shuffle? : boolean) : Promise<LeetcodeProblem[]> => {
         if (!shuffle) {
             shuffle = false;
         }
@@ -37,7 +37,7 @@ export default class LeetcodeProblemController {
         return res.json();
     }
 
-    static addQuestion = async (problem : LeetcodeProblem) : Promise<LeetcodeProblem> =>  {
+    addQuestion = async (problem : LeetcodeProblem) : Promise<LeetcodeProblem> =>  {
         let res = await fetch(`${this.url}/leetcodeproblems`, {
             method: 'POST',
             headers: {
@@ -49,12 +49,12 @@ export default class LeetcodeProblemController {
         return res.json();
     }
 
-    static getCategories = async () : Promise<string[]> => {
+    getCategories = async () : Promise<string[]> => {
         let res = await fetch(`${this.url}/leetcodeproblems/categories`);
         return res.json();
     }
 
-    static updateQuestion = async(problem : LeetcodeProblem) : Promise<LeetcodeProblem> => {
+    updateQuestion = async(problem : LeetcodeProblem) : Promise<LeetcodeProblem> => {
         let res = await fetch(`${this.url}/leetcodeproblems/${problem.id}`, {
             method: 'PUT',
             headers: {
@@ -66,7 +66,7 @@ export default class LeetcodeProblemController {
         return res.json();
     }
 
-    static deleteQuestion = async(problem : LeetcodeProblem) => {
+    deleteQuestion = async(problem : LeetcodeProblem) => {
         await fetch(`${this.url}/leetcodeproblems/${problem.id}`, {
             method: 'DELETE',
             headers: {

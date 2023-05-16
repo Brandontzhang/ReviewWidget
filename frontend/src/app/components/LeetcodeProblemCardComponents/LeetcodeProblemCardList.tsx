@@ -8,6 +8,7 @@ import useLeetcodeProblemCategories from "../../hooks/useLeetcodeProblemCategori
 import LeetcodeProblemController from "../../controllers/LeetcodeProblemController";
 
 const LeetcodeProblemCardList = (props : any) => {
+    const leetcodeProblemController = new LeetcodeProblemController();
     const categories = useLeetcodeProblemCategories(["Category"]);
     const [selectedCategory, setSelectedCategory] = useState("");
     const [problems, setProblems] = useState<LeetcodeProblem[]>([]);
@@ -18,7 +19,7 @@ const LeetcodeProblemCardList = (props : any) => {
     }, [leetcodeProblems])
 
     const deleteProblem = (problem : LeetcodeProblem) => {
-        LeetcodeProblemController.deleteQuestion(problem);
+        leetcodeProblemController.deleteQuestion(problem);
         setLeetcodeProblems(leetcodeProblems => {
             return leetcodeProblems.filter(p => p.id != problem.id);
         })

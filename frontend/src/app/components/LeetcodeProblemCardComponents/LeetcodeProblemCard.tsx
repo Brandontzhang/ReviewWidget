@@ -6,6 +6,7 @@ import LeetcodeProblemController from "../../controllers/LeetcodeProblemControll
 import LeetcodeProblem from "../../models/LeetcodeProblem";
 
 const LeetcodeProblemCard = (props : any) => {
+    const leetcodeProblemController = new LeetcodeProblemController();
     const [side, setSide] = useState("front");
     const [problem, setProblem] = useState<LeetcodeProblem>(props.problem);
     const [priorityColor, setPriorityColor] = useState("#FFFFFF")
@@ -54,7 +55,7 @@ const LeetcodeProblemCard = (props : any) => {
             date: new Date(),
             userDefinedPriority : priority
         }
-        updatedProblem = await LeetcodeProblemController.updateQuestion(updatedProblem);
+        updatedProblem = await leetcodeProblemController.updateQuestion(updatedProblem);
         setSide("front");
         setProblem(updatedProblem);
         // Updating the list when the priority is changed
@@ -69,7 +70,7 @@ const LeetcodeProblemCard = (props : any) => {
             date: new Date(),
             userDefinedPriority : -1
         }
-        LeetcodeProblemController.updateQuestion(updatedProblem);
+        leetcodeProblemController.updateQuestion(updatedProblem);
         setSide("front");
         setProblem(updatedProblem);
         if (props.updateList) {
