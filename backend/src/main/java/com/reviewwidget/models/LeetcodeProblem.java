@@ -16,9 +16,10 @@ public class LeetcodeProblem extends Item {
 
     public String answer;
 
+    public String difficulty;
+
     @Autowired
-    public LeetcodeProblem(String title, Date date, String description, Type type, List<String> categories, String answer, List<String> hints, int userDefinedPriority) {
-        super(date);
+    public LeetcodeProblem(String title, Date lastReviewedDate, int priority, String description, Type type, List<String> categories, String answer, List<String> hints, String difficulty) {
         this.type = Item.Type.LEETCODE;
         
         this.title = title;
@@ -29,17 +30,22 @@ public class LeetcodeProblem extends Item {
         }
         this.hints = hints;
         this.answer = answer;
-        this.userDefinedPriority = userDefinedPriority;
+        this.difficulty = difficulty;
+
+        this.priority = priority;
+        this.lastReviewedDate = lastReviewedDate;
+        this.setNextReviewDate();
     }
 
     public void updateProblem(LeetcodeProblem problem) {
-        this.date = problem.getDate();
-        this.title = problem.getTitle();
+        this.priority = problem.getPriority();
         this.description = problem.getDescription();
+        this.difficulty = problem.getDifficulty();
         this.categories = problem.getCategories();
         this.hints = problem.getHints();
         this.answer = problem.getAnswer();
-        this.userDefinedPriority = problem.getUserDefinedPriority();
+        this.lastReviewedDate = new Date();
+        this.setNextReviewDate();
     }
 
     public List<String> getHints() {
@@ -68,6 +74,14 @@ public class LeetcodeProblem extends Item {
 
     public Type getType() {
         return this.type;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public String getDifficulty() {
+        return this.difficulty;
     }
 
 }

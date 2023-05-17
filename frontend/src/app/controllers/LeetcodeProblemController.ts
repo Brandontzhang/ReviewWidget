@@ -5,7 +5,7 @@ const devMode : boolean = false;
 
 export default class LeetcodeProblemController {
 
-    devMode : boolean = true;
+    devMode : boolean = false;
 
     url : string = 'http://localhost:8080/api';
 

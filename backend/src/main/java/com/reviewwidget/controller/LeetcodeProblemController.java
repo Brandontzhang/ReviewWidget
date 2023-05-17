@@ -56,7 +56,7 @@ public class LeetcodeProblemController {
 
         // if shuffle is required
         if (shuffle.isPresent() && shuffle.get()) {
-            problems = leetcodeService.shuffleQuestionsInPriority(problems);
+            // problems = leetcodeService.shuffleQuestionsInPriority(problems);
         }
 
         return problems;
@@ -81,8 +81,6 @@ public class LeetcodeProblemController {
     @GetMapping("leetcodeproblems/{id}")
     public LeetcodeProblem getLeetcodeProblemById(@PathVariable String id) {
         Optional<LeetcodeProblem> problem = leetcodeService.findById(id);
-
-        System.out.println(problem.get().getTitle());
         return problem.get();
     }
 

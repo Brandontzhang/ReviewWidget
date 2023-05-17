@@ -1,9 +1,9 @@
 package com.reviewwidget.models;
 
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,28 +14,29 @@ public abstract class Item {
     @Id
     protected UUID uid = UUID.randomUUID();
 
-    protected int userDefinedPriority;
-
     protected String title;
 
     protected String description;
 
-    protected Date date;
+    protected Date lastReviewedDate;
+
+    protected Date nextReviewDate;
 
     protected Type type;
+
+    protected int priority;
 
     public enum Type {
         LEETCODE
     }
 
     public Item() {
-        this.userDefinedPriority = 0;
         this.description = "";
     }
 
-    public Item(Date date) {
+    public Item(Date lastReviewedDate) {
         this();
-        this.date = date;
+        this.lastReviewedDate = lastReviewedDate;
     }
 
     public static Comparator<Item> getItemComparator() {
@@ -44,24 +45,31 @@ public abstract class Item {
         return compare;
     }
 
-    private int calculatePriority() {
-        // Calculate the priority 
-        // Depends on user priority and time between date reviewed and current date 
+    public void setNextReviewDate() {
+        int daysOffset = 0;
 
-        Date currentDate = new Date();
-        long diffInMS = currentDate.getTime() - this.date.getTime();
-        long diffInDays = TimeUnit.DAYS.convert(diffInMS, TimeUnit.MILLISECONDS);
-        
-        if (diffInDays <= 1) {
-            // Lowest priority, last reviewed in last day or so
-            return userDefinedPriority;
-        } else if (diffInDays <= 7) {
-            // Can be selected, but mostly dependent on the user's priority
-            return userDefinedPriority + 1;
-        } else {
-            // It's been a bit long, just review it real quick
-            return 5;
+        switch(this.priority) {
+            case 1:
+                daysOffset = 28;
+                break;
+            case 2:
+                daysOffset = 14;
+                break;
+            case 3:
+                daysOffset = 7;
+                break;
+            case 4:
+                daysOffset = 5;
+                break;
+            case 5:
+                daysOffset = 3;
+                break;
+            default:
+                daysOffset = 0;
+                break;
         }
+
+        this.nextReviewDate = this.getDateOffsetByDays(lastReviewedDate, daysOffset);
     }
 
     public UUID getId() {
@@ -69,24 +77,23 @@ public abstract class Item {
     }
 
     public int getPriority() {
-        // Calculate Priority here
-        return this.calculatePriority();
+        return this.priority;
     }
 
-    public int getUserDefinedPriority() {
-        return this.userDefinedPriority;
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
-    public void setUserDefinedPriority(int userDefinedPriority) {
-        this.userDefinedPriority = userDefinedPriority;
+    public Date getLastReviewedDate() {
+        return this.lastReviewedDate;
     }
 
-    public Date getDate() {
-        return this.date;
+    public void setLastReviewedDate(Date lastReviewedDate) {
+        this.lastReviewedDate = lastReviewedDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public Date getNextReviewDate() {
+        return this.nextReviewDate;
     }
 
     public String getDescription() {
@@ -103,6 +110,13 @@ public abstract class Item {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    protected Date getDateOffsetByDays(Date date, int daysOffset) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.DATE, daysOffset);
+        return c.getTime();
     }
 
 }
