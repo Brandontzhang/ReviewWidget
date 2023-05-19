@@ -9,7 +9,7 @@ import TextArea from "antd/es/input/TextArea";
  * @returns 
  */
 const LeetcodeProblemCardAnswer = (props : any) => {
-    const {answer, archive, updatePriority} = props;
+    const {answer, updatePriority, priority} = props;
 
     return (
         <Card title="Answer" bodyStyle={{height: "85%"}}  style={{...props.style, margin: "2%", height: "350px"}} extra={<Button onClick={() => props.setSide("front")}><CloseOutlined /></Button>}>
@@ -19,10 +19,10 @@ const LeetcodeProblemCardAnswer = (props : any) => {
                 </Form.Item>
 
                 <ButtonGroup style={{display: "flex", justifyContent: "center"}}>
-                    <Button onClick={() => updatePriority(+1)}><CloseOutlined style={{color: "red"}} /></Button>
-                    <Button onClick={() => updatePriority(0)}><RedoOutlined style={{color: "blue"}}/></Button>
-                    <Button onClick={() => updatePriority(-1)}><CheckOutlined style={{color: "green"}} /></Button>
-                    <Button onClick={() => archive()}><FolderOutlined style={{color: "orange"}} /></Button>
+                    <Button onClick={() => updatePriority(5)}><CloseOutlined style={{color: "red"}} /></Button>
+                    <Button onClick={() => updatePriority(priority)}><RedoOutlined style={{color: "blue"}}/></Button>
+                    <Button onClick={() => updatePriority(priority-1)}><CheckOutlined style={{color: "green"}} /></Button>
+                    <Button onClick={() => updatePriority(0)}><FolderOutlined style={{color: "orange"}} /></Button>
                 </ButtonGroup>
             </div>
         </Card>

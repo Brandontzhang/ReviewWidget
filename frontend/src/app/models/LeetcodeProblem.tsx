@@ -6,4 +6,6 @@ export default interface LeetcodeProblem extends Item {
     hints : string[];
 
     answer : string;
+
+    difficulty : number;
 }

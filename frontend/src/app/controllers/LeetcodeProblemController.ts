@@ -2,14 +2,12 @@ import LeetcodeProblem from "../models/LeetcodeProblem"
 
 const devMode : boolean = false;
 
-
 export default class LeetcodeProblemController {
-
-    devMode : boolean = false;
 
     url : string = 'http://localhost:8080/api';
 
     constructor() {
+        let devMode = true;
         if (!devMode) {
             this.url = 'https://test-backend-386802.appspot.com/api'
         }

@@ -12,24 +12,35 @@ const LeetcodeProblemCard = (props : any) => {
     const [priorityColor, setPriorityColor] = useState("#FFFFFF")
 
     const getPriorityColor = () => {
-        switch (problem.priority) {
-            case 0:
-                return '#27FF00';
-            case 1:
-                return '#00B9CB';
-            case 2: 
-                return '#FFE800';
-            case 3:
-                return '#FF7400';
-            case 4:
-                return '#FF00AA';
-            case 5:
-                return '#FF0000';
-            case -1:
-                return '#808080';
-            default:
-                return '#FFFFFF';
+        if (problem.priority == 0) {
+            return "#FFFFFF"
         }
+
+        let currentDate = new Date();
+        let reviewDate = new Date(problem.nextReviewDate);
+
+        let timeDif = reviewDate.getTime() - currentDate.getTime();
+        let daysDif = Math.ceil(timeDif / (1000 * 3600 * 24));
+
+        let color = "#0000FF";
+
+        if (daysDif <= 7) {
+            color = "#27FF00";
+        }
+
+        if (daysDif <= 5) {
+            color = "#FFE800";
+        }
+
+        if (daysDif <= 3) {
+            color = "#FF7400";
+        }
+
+        if (daysDif < 0) {
+            color = "#FF0000";
+        } 
+
+        return color;
     }
 
     // When a new list of problems is generated
@@ -42,37 +53,16 @@ const LeetcodeProblemCard = (props : any) => {
         setPriorityColor(getPriorityColor());
     }, [problem])
 
-    const updatePriority = async (priorityIncrement : number) => {
-        let priority = problem.userDefinedPriority + priorityIncrement;
-        if (priority > 5) {
-            priority = 5;
-        }
-        if (priority <= -1) {
-            priority = -1;
-        }
+    const updatePriority = async (priority : number) => {
+        priority = Math.max(priority, 0);
         let updatedProblem = {
             ...problem,
-            date: new Date(),
-            userDefinedPriority : priority
+            priority : priority
         }
         updatedProblem = await leetcodeProblemController.updateQuestion(updatedProblem);
         setSide("front");
         setProblem(updatedProblem);
         // Updating the list when the priority is changed
-        if (props.updateList) {
-            props.updateList(problem);
-        }
-    }
-
-    const archive = () => {
-        let updatedProblem = {
-            ...problem,
-            date: new Date(),
-            userDefinedPriority : -1
-        }
-        leetcodeProblemController.updateQuestion(updatedProblem);
-        setSide("front");
-        setProblem(updatedProblem);
         if (props.updateList) {
             props.updateList(problem);
         }
@@ -89,7 +79,7 @@ const LeetcodeProblemCard = (props : any) => {
     } 
 
     if (side === "answer") {
-        return <LeetcodeProblemCardAnswer style={style} updatePriority={updatePriority} archive={archive} answer={problem.answer} setSide={setSide} />
+        return <LeetcodeProblemCardAnswer style={style} updatePriority={updatePriority} priority={problem.priority} answer={problem.answer} setSide={setSide} />
     }
 
     return <LeetcodeProblemCardFront style={style} problem={problem} setSide={setSide} delete={props.delete}/>

@@ -20,8 +20,8 @@ let AddQuestion = (props : any) => {
     
     let [title, setTitle] = useState("");
     let [description, setDescription] = useState("");
-    let [date, setDate] = useState(Date.now());
     let [priority, setPriority] = useState(-1);
+    let [difficulty, setDifficulty] = useState(1);
     let [answer, setAnswer] = useState("");
     let [hints, setHints] = useState<Hint[]>([]);
     let [categories, setCategories] = useState<string[]>([]);
@@ -46,7 +46,7 @@ let AddQuestion = (props : any) => {
         }
     }, [leetcodeProblem]);
 
-    let priorityOptions : DefaultOptionType[] = [
+    let difficultyOptions : DefaultOptionType[] = [
         {
             key: 1,
             value : 1,
@@ -72,17 +72,19 @@ let AddQuestion = (props : any) => {
     };
 
     let submit = async () => {
-        setDate(Date.now());
         let newProblem : LeetcodeProblem = {
             id : id? id : "",
             title: title,
             description: description,
-            userDefinedPriority: priority,
-            priority: priority,
+            priority: 5, // Default priority always starts at 5
             hints: hints.map(hint => hint.value),
             answer: answer,
-            date: new Date(date),
-            categories : categories
+            categories : categories,
+            difficulty : difficulty,
+
+            // Dates are temporary values, they are set on the backend on create
+            lastReviewedDate : new Date(), 
+            nextReviewDate : new Date(),
         }
 
         if (!id) {
@@ -121,11 +123,11 @@ let AddQuestion = (props : any) => {
                         onChange={e => setDescription(e.target.value)} 
                     />
                 </Form.Item>
-                <Form.Item label="Difficulty" name="priority" rules={[{required : true, message: "Please select a difficulty"}]}>
+                <Form.Item label="Difficulty" name="difficulty" rules={[{required : true, message: "Please select a difficulty"}]}>
                     <Select 
-                        options={priorityOptions} 
+                        options={difficultyOptions} 
                         placeholder={'Easy'} 
-                        onChange={e => setPriority(e)} 
+                        onChange={e => setDifficulty(e)} 
                     />
                 </Form.Item>
                 <Form.Item label="Hints" name="hints">

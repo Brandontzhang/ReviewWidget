@@ -38,6 +38,7 @@ public class LeetcodeProblemController {
     // Create
     @PostMapping("leetcodeproblems")
     public Item createItem(@RequestBody LeetcodeProblem problem) {
+        problem.setNextReviewDate();
         return leetcodeService.createLeetcodeProblem(problem);
     }
 

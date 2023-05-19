@@ -11,11 +11,11 @@ const LeetcodeProblemCardList = (props : any) => {
     const leetcodeProblemController = new LeetcodeProblemController();
     const categories = useLeetcodeProblemCategories(["Category"]);
     const [selectedCategory, setSelectedCategory] = useState("");
-    const [problems, setProblems] = useState<LeetcodeProblem[]>([]);
     const [leetcodeProblems, setLeetcodeProblems] = useLeetcodeProblems([], selectedCategory);
     
     useEffect(() => {
-        setProblems(leetcodeProblems);
+        setLeetcodeProblems(leetcodeProblems);
+        console.log(leetcodeProblems);
     }, [leetcodeProblems])
 
     const deleteProblem = (problem : LeetcodeProblem) => {
@@ -27,9 +27,9 @@ const LeetcodeProblemCardList = (props : any) => {
 
     return (
         <div style={{display: "flex", flexDirection:"column"}}>
-            <Navbar categories={categories} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} problems={problems} setProblems={setProblems} />
+            <Navbar categories={categories} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} problems={leetcodeProblems} setProblems={setLeetcodeProblems} />
             <Row>
-                {problems && problems.map((p, index) => 
+                {leetcodeProblems && leetcodeProblems.map((p, index) => 
                 <Col key={index} xs={24} sm={12} md={8} lg={6} xl={6}>
                     <LeetcodeProblemCard problem={p} delete={deleteProblem}/>
                 </Col>
