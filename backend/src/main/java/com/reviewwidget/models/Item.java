@@ -119,4 +119,15 @@ public abstract class Item {
         return c.getTime();
     }
 
+    public boolean isDue() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        int currentDay = cal.get(Calendar.DAY_OF_MONTH);
+
+        cal.setTime(this.nextReviewDate);
+        int reviewDay = cal.get(Calendar.DAY_OF_MONTH);
+
+        return reviewDay <= currentDay;
+    }
+
 }

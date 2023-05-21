@@ -41,6 +41,15 @@ public class LeetcodeProblemService {
         return problems;
     }
 
+    public List<LeetcodeProblem> getDueProblems() {
+        List<Item> items = leetcodeRepository.findAll(Item.Type.LEETCODE);
+        List<LeetcodeProblem> problems = items.stream()
+                                        .map(item -> (LeetcodeProblem) item)
+                                        .filter(leetcodeProblem -> leetcodeProblem.isDue())
+                                        .collect(Collectors.toList());
+        return problems;
+    }
+
     public Optional<LeetcodeProblem> findById(String id) {
         UUID uid = UUID.fromString(id);
         return leetcodeRepository.findById(uid);

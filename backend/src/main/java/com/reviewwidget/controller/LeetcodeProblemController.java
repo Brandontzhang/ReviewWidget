@@ -79,6 +79,14 @@ public class LeetcodeProblemController {
         return categories;
     }
 
+    // Get problems that are due for review
+    @GetMapping("leetcodeproblems/dueproblems")
+    public List<LeetcodeProblem> getDueProblems() {
+        List<LeetcodeProblem> problems = leetcodeService.getDueProblems();
+
+        return problems;
+    }
+
     @GetMapping("leetcodeproblems/{id}")
     public LeetcodeProblem getLeetcodeProblemById(@PathVariable String id) {
         Optional<LeetcodeProblem> problem = leetcodeService.findById(id);
