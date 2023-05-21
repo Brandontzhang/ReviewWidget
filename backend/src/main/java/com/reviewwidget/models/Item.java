@@ -70,8 +70,6 @@ public abstract class Item {
         }
 
         this.nextReviewDate = this.getDateOffsetByDays(lastReviewedDate, daysOffset);
-
-        System.out.println(this.nextReviewDate);
     }
 
     public UUID getId() {

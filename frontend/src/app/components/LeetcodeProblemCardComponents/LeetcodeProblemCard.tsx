@@ -70,7 +70,9 @@ const LeetcodeProblemCard = (props : any) => {
 
     const style = {
         ...props.style,
-        boxShadow:`0px 0px 10px ${priorityColor}`
+        boxShadow:`0px 0px 10px ${priorityColor}`,
+        margin : "8%", 
+        minWidth : "290px"
     }
 
     

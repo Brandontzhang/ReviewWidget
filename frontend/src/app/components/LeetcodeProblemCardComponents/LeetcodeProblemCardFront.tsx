@@ -12,14 +12,23 @@ const LeetcodeProblemCardFront = (props : any) => {
     const [tags, setTags] = useState<string[]>(problem.categories);
     const navigate = useNavigate();
 
+    let problemDue = () : boolean => {
+        let currentDate = new Date();
+        let reviewDate = new Date(problem.nextReviewDate);
+
+        let timeDif = reviewDate.getTime() - currentDate.getTime();
+        let daysDif = Math.ceil(timeDif / (1000 * 3600 * 24));
+
+        return daysDif < 0;
+    }
+
     let style = {
         ...props.style,
-        margin: "2%", 
         height: "350px",
     }
 
     const date = (
-        <span>{nextDate.getMonth() + 1}/{nextDate.getDate()}/{nextDate.getFullYear()}</span>
+        <span style={{"color" : problemDue() ? "#FF0000" : "#000"}}>{nextDate.getMonth() + 1}/{nextDate.getDate() + 1}/{nextDate.getFullYear()}</span>
     )
 
     return (

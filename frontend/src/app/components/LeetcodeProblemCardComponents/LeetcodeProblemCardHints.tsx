@@ -33,7 +33,7 @@ const LeetcodeProblemCardHints = (props : any) => {
     return (
         <Card 
             bodyStyle={{height: "85%"}} 
-            style={{...props.style, margin: "2%", height: "350px"}} 
+            style={{...props.style, height: "350px"}} 
             title={`Hint ${index + 1}/${props.hints.length}`} 
             extra={<Button onClick={() => props.setSide("front")}><CloseOutlined /></Button>}>
 

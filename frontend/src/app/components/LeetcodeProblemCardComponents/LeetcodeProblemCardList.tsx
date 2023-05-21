@@ -15,7 +15,6 @@ const LeetcodeProblemCardList = (props : any) => {
     
     useEffect(() => {
         setLeetcodeProblems(leetcodeProblems);
-        console.log(leetcodeProblems);
     }, [leetcodeProblems])
 
     const deleteProblem = (problem : LeetcodeProblem) => {
@@ -30,7 +29,7 @@ const LeetcodeProblemCardList = (props : any) => {
             <Navbar categories={categories} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} problems={leetcodeProblems} setProblems={setLeetcodeProblems} />
             <Row>
                 {leetcodeProblems && leetcodeProblems.map((p, index) => 
-                <Col key={index} xs={24} sm={12} md={8} lg={6} xl={6}>
+                <Col key={index} xs={24} sm={12} md={12} lg={8} xl={8}>
                     <LeetcodeProblemCard problem={p} delete={deleteProblem}/>
                 </Col>
                 )}
