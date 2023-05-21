@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -44,13 +45,18 @@ public class LeetcodeProblemController {
 
     // Read
     @GetMapping("leetcodeproblems")
-    public List<LeetcodeProblem> getAllItems(@RequestParam Optional<String> category, @RequestParam Optional<Boolean> shuffle) {
+    public List<LeetcodeProblem> getAllItems(@RequestParam Optional<String> category, @RequestParam Optional<Boolean> shuffle, @RequestParam Optional<Boolean> due) {
         List<LeetcodeProblem> problems = null;
+        // TODO: Logic should be moved to service
         if (category.isPresent()) {
             problems = leetcodeService.findAllByCategory(category.get());
         } else {
             problems = leetcodeService.findAll();;
         }
+
+        if (due.isPresent() && due.get()) {
+            problems = problems.stream().filter(p -> p.isDue()).collect(Collectors.toList());
+        } 
 
         // Sort by priority
         Collections.sort(problems, Collections.reverseOrder((a, b) -> a.getPriority() - b.getPriority()));
@@ -77,14 +83,6 @@ public class LeetcodeProblemController {
         }
 
         return categories;
-    }
-
-    // Get problems that are due for review
-    @GetMapping("leetcodeproblems/dueproblems")
-    public List<LeetcodeProblem> getDueProblems() {
-        List<LeetcodeProblem> problems = leetcodeService.getDueProblems();
-
-        return problems;
     }
 
     @GetMapping("leetcodeproblems/{id}")

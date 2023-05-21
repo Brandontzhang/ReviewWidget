@@ -16,6 +16,10 @@ const Main = () => {
         navigate("/review", {state : {selectedCategory : selectedCategory}});
     }
 
+    const startReview = () => {
+        navigate("/review", {state : {selectedCategory : selectedCategory, due : true}});
+    }
+
     return (
         <div style={{display: "flex", flexDirection:"column", height: "100%",}}>
             <Navbar></Navbar>

@@ -14,11 +14,12 @@ export default class LeetcodeProblemController {
     }
 
 
-    getProblemsInCategory = async (category : string, shuffle? : boolean) : Promise<LeetcodeProblem[]> => {
+    getProblemsInCategory = async (category : string, shuffle? : boolean, due? : boolean) : Promise<LeetcodeProblem[]> => {
+        console.log(due);
         if (!shuffle) {
             shuffle = false;
         }
-        let res = await fetch(`${this.url}/leetcodeproblems?category=${category}&shuffle=${shuffle}`)
+        let res = await fetch(`${this.url}/leetcodeproblems?category=${category}&shuffle=${shuffle}&due=${due}`)
         return res.json();
     }
 
@@ -27,11 +28,12 @@ export default class LeetcodeProblemController {
         return res.json();
     }
 
-    getAll = async (shuffle? : boolean) : Promise<LeetcodeProblem[]> => {
+    getAll = async (shuffle? : boolean, due? : boolean) : Promise<LeetcodeProblem[]> => {
         if (!shuffle) {
             shuffle = false;
         }
-        let res = await fetch(`${this.url}/leetcodeproblems?shuffle=${shuffle}`);
+        console.log("hi")
+        let res = await fetch(`${this.url}/leetcodeproblems?shuffle=${shuffle}&due=${due}`);
         return res.json();
     }
 

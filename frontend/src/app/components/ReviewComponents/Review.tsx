@@ -13,7 +13,7 @@ const Review = (props : any) => {
     const location = useLocation();
     const {state} = location;
     const [index, setIndex] = useState(0);
-    const [leetcodeProblems, setLeetcodeProblems] = useLeetcodeProblems([], state.selectedCategory ? state.selectedCategory : "", true);
+    const [leetcodeProblems, setLeetcodeProblems] = useLeetcodeProblems([], state.selectedCategory ? state.selectedCategory : "", true, state.due);
     const [problem, setProblem] = useState(leetcodeProblems[index]);
 
     const changeProblem = (increment : number) => {
