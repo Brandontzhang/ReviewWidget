@@ -7,7 +7,7 @@ export default class LeetcodeProblemController {
     url : string = 'http://localhost:8080/api';
 
     constructor() {
-        let devMode = true;
+        let devMode = false;
         if (!devMode) {
             this.url = 'https://test-backend-386802.appspot.com/api'
         }

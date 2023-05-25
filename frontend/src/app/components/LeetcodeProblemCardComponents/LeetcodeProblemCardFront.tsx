@@ -20,7 +20,7 @@ const LeetcodeProblemCardFront = (props : any) => {
         let daysDif = Math.ceil(timeDif / (1000 * 3600 * 24));
 
         return daysDif < 0;
-    }
+    } 
 
     let style = {
         ...props.style,
