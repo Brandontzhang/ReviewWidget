@@ -24,6 +24,7 @@ const useLeetcodeProblems = (problems : LeetcodeProblem[], category? : string, s
         } else {
             fetchProblemsByCategory(category);
         }
+
     }, [category]);
 
     return [leetcodeProblems, setLeetcodeProblems];

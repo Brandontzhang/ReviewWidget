@@ -9,13 +9,12 @@ export default class LeetcodeProblemController {
     constructor() {
         let devMode = false;
         if (!devMode) {
-            this.url = 'https://test-backend-386802.appspot.com/api'
+            this.url = 'https://test-backend-386802.appspot.com/api';
         }
     }
 
 
     getProblemsInCategory = async (category : string, shuffle? : boolean, due? : boolean) : Promise<LeetcodeProblem[]> => {
-        console.log(due);
         if (!shuffle) {
             shuffle = false;
         }
@@ -32,7 +31,10 @@ export default class LeetcodeProblemController {
         if (!shuffle) {
             shuffle = false;
         }
-        console.log("hi")
+
+        if (!due) {
+            due = false;
+        }
         let res = await fetch(`${this.url}/leetcodeproblems?shuffle=${shuffle}&due=${due}`);
         return res.json();
     }
