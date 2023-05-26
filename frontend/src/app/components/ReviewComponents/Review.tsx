@@ -26,6 +26,7 @@ const Review = (props : any) => {
     // When the inital problems load
     useEffect(() => {
         setProblem(leetcodeProblems[index]);
+        console.log(leetcodeProblems);
     }, [leetcodeProblems]);
 
     // When problem states are updated (the priority)... Problem should be removed

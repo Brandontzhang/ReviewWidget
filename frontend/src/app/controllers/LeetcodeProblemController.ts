@@ -18,6 +18,9 @@ export default class LeetcodeProblemController {
         if (!shuffle) {
             shuffle = false;
         }
+        if (!due) {
+            due = false;
+        }
         let res = await fetch(`${this.url}/leetcodeproblems?category=${category}&shuffle=${shuffle}&due=${due}`)
         return res.json();
     }
