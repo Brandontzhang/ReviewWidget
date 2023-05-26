@@ -12,8 +12,7 @@ export default class LeetcodeProblemController {
             this.url = 'https://test-backend-386802.appspot.com/api';
         }
     }
-
-
+    
     getProblemsInCategory = async (category : string, shuffle? : boolean, due? : boolean) : Promise<LeetcodeProblem[]> => {
         if (!shuffle) {
             shuffle = false;
