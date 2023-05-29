@@ -44,7 +44,7 @@ public class LeetcodeProblemController {
     }
 
     // Read
-    @GetMapping("leetcodeproblems")
+    @PutMapping("leetcodeproblems")
     public List<LeetcodeProblem> getAllItems(@RequestBody Optional<List<String>> categories, @RequestParam Optional<Boolean> shuffle, @RequestParam Optional<Boolean> due) {
         List<LeetcodeProblem> problems = null;
         // TODO: Logic should be moved to service

@@ -1,5 +1,6 @@
 package com.reviewwidget.models;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
@@ -122,12 +123,17 @@ public abstract class Item {
     public boolean isDue() {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
-        int currentDay = cal.get(Calendar.DAY_OF_MONTH);
+        Date current = cal.getTime();
 
         cal.setTime(this.nextReviewDate);
-        int reviewDay = cal.get(Calendar.DAY_OF_MONTH);
+        Date review = cal.getTime();
 
-        return reviewDay <= currentDay;
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+
+        System.out.println(this.title);
+        System.out.println(fmt.format(review));
+
+        return review.before(current) || fmt.format(current).equals(fmt.format(review));
     }
 
 }
