@@ -41,6 +41,16 @@ public class LeetcodeProblemService {
         return problems;
     }
 
+    public List<LeetcodeProblem> findAllByCategories(List<String> categories) {
+        List<Item> items = leetcodeRepository.findAll(Item.Type.LEETCODE);
+        List<LeetcodeProblem> problems = items.stream()
+                                            .map(item -> (LeetcodeProblem) item)
+                                            .filter(leetcodeProblem -> leetcodeProblem.getCategories().containsAll(categories))
+                                            .collect(Collectors.toList());
+        return problems;
+
+    }
+
     public List<LeetcodeProblem> getDueProblems() {
         List<Item> items = leetcodeRepository.findAll(Item.Type.LEETCODE);
         List<LeetcodeProblem> problems = items.stream()

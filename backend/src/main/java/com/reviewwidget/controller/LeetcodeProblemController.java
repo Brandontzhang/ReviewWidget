@@ -45,13 +45,13 @@ public class LeetcodeProblemController {
 
     // Read
     @GetMapping("leetcodeproblems")
-    public List<LeetcodeProblem> getAllItems(@RequestParam Optional<String> category, @RequestParam Optional<Boolean> shuffle, @RequestParam Optional<Boolean> due) {
+    public List<LeetcodeProblem> getAllItems(@RequestBody Optional<List<String>> categories, @RequestParam Optional<Boolean> shuffle, @RequestParam Optional<Boolean> due) {
         List<LeetcodeProblem> problems = null;
         // TODO: Logic should be moved to service
-        if (category.isPresent()) {
-            problems = leetcodeService.findAllByCategory(category.get());
+        if (categories.isPresent()) {
+            problems = leetcodeService.findAllByCategories(categories.get());
         } else {
-            problems = leetcodeService.findAll();;
+            problems = leetcodeService.findAll();
         }
 
         if (due.isPresent() && due.get()) {
