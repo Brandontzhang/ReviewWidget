@@ -6,13 +6,21 @@ import LeetcodeProblemCard from "./LeetcodeProblemCard";
 import Navbar from "./Navbar";
 import useLeetcodeProblemCategories from "../../hooks/useLeetcodeProblemCategories";
 import LeetcodeProblemController from "../../controllers/LeetcodeProblemController";
+import { useLocation } from "react-router-dom";
 
 const LeetcodeProblemCardList = (props : any) => {
+    const location = useLocation();
     const leetcodeProblemController = new LeetcodeProblemController();
     const categories = useLeetcodeProblemCategories(["Category"]);
-    const [selectedCategory, setSelectedCategory] = useState("");
-    const [leetcodeProblems, setLeetcodeProblems] = useLeetcodeProblems([], selectedCategory);
+    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+    const [leetcodeProblems, setLeetcodeProblems] = useLeetcodeProblems([], selectedCategories);
     
+    useEffect(() => {
+        if (location.state) {
+            setSelectedCategories(location.state.selectedCategories)
+        }
+    }, [])
+
     useEffect(() => {
         setLeetcodeProblems(leetcodeProblems);
     }, [leetcodeProblems])
@@ -26,7 +34,7 @@ const LeetcodeProblemCardList = (props : any) => {
 
     return (
         <div style={{display: "flex", flexDirection:"column"}}>
-            <Navbar categories={categories} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} problems={leetcodeProblems} setProblems={setLeetcodeProblems} />
+            <Navbar categories={categories} selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} problems={leetcodeProblems} setProblems={setLeetcodeProblems} />
             <Row>
                 {leetcodeProblems && leetcodeProblems.map((p, index) => 
                 <Col key={index} xs={24} sm={12} md={12} lg={8} xl={8}>

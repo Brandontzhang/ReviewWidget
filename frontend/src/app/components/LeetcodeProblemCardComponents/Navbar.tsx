@@ -1,15 +1,22 @@
 import { Col, Menu, MenuProps, Row } from "antd"
 import { ItemType } from "antd/es/menu/hooks/useItems"
-import LeetcodeProblem from "../../models/LeetcodeProblem";
-import { FolderOutlined, HomeOutlined, PlusCircleFilled, UnorderedListOutlined } from "@ant-design/icons";
-import { useEffect, useState } from "react";
-
+import { FolderOutlined, HomeOutlined, PlusCircleFilled } from "@ant-design/icons";
 const Navbar = (props : any) => {
 
-    const {categories, selectedCategory, setSelectedCategory, problems} = props;
+    const {categories, selectedCategories, setSelectedCategories, problems} = props;
 
-    const changeCategory = (e : any) => {
-        setSelectedCategory(e.key);
+    const selectCategory = (e : any) => {
+        let key : string = e.key;
+        if (key === "") {
+            setSelectedCategories([]);
+            return;
+        }
+        setSelectedCategories((categories : string[]) => [...categories, key]);
+    }
+
+    const deselectCategory = (e : any) => {
+        let key : string = e.key;
+        setSelectedCategories((categories : string[]) => categories.filter(c => c != key));
     }
 
     const getCategories = (categories : string[]) : ItemType[] => {
@@ -22,7 +29,7 @@ const Navbar = (props : any) => {
 
     const items : MenuProps['items'] = [
         {
-            label: <span style={{fontSize: "100%"}}>{selectedCategory ? selectedCategory : "All Categories"}</span>,
+            label: <span style={{fontSize: "100%"}}>Select Categories</span>,
             key: "1",
             children : getCategories(categories),
             icon: <FolderOutlined />
@@ -50,7 +57,7 @@ const Navbar = (props : any) => {
     return (
         <Row style={{width:"100%", borderBottom:"1px solid rgba(5, 5, 5, 0.06)"}}>
             <Col xs={12} sm={12} md={8} lg={8} xl={8}>
-                {categories && <Menu onClick={(e) => changeCategory(e)} mode="horizontal" items={items} />}
+                {categories && <Menu multiple={true} selectedKeys={selectedCategories} onSelect={e => selectCategory(e)} onDeselect={e => deselectCategory(e)} mode="horizontal" items={items} />}
             </Col>
             <Col xs={0} sm={0} md={8} lg={8} xl={8}></Col>
             <Col xs={12} sm={12} md={8} lg={8} xl={8}>

@@ -2,7 +2,6 @@ import { DeleteOutlined } from "@ant-design/icons";
 import { Button, Input, InputRef, Space } from "antd";
 import React, { useState, useRef } from "react";
 
-
 interface ListItem {
     key : number, 
     value : string,

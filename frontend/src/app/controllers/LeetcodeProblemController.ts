@@ -13,14 +13,20 @@ export default class LeetcodeProblemController {
         }
     }
     
-    getProblemsInCategory = async (category : string, shuffle? : boolean, due? : boolean) : Promise<LeetcodeProblem[]> => {
+    getProblemsInCategories = async (categories : string[], shuffle? : boolean, due? : boolean) : Promise<LeetcodeProblem[]> => {
         if (!shuffle) {
             shuffle = false;
         }
         if (!due) {
             due = false;
         }
-        let res = await fetch(`${this.url}/leetcodeproblems?category=${category}&shuffle=${shuffle}&due=${due}`)
+        let res = await fetch(`${this.url}/leetcodeproblems?shuffle=${shuffle}&due=${due}`, {
+            method: 'PUT',
+            headers: {
+                'content-type' : 'application/json;charset=UTF-8',
+            },
+            body: JSON.stringify(categories)
+        })
         return res.json();
     }
 
@@ -37,7 +43,12 @@ export default class LeetcodeProblemController {
         if (!due) {
             due = false;
         }
-        let res = await fetch(`${this.url}/leetcodeproblems?shuffle=${shuffle}&due=${due}`);
+        let res = await fetch(`${this.url}/leetcodeproblems?shuffle=${shuffle}&due=${due}`, {
+            method: 'PUT',
+            headers: {
+                'content-type' : 'application/json;charset=UTF-8',
+            },
+        });
         return res.json();
     }
 
